@@ -21,11 +21,14 @@
     <nav>
         <a href="{% url 'users:home' %}">Home</a>
         <a href="#about">About Us</a>
-        <a href="#services">Our Services</a>
-        <a href="#Register">Register</a>
-        <a href="{% url 'users:login_user' %}">Login</a>
-        <a href="#">Logout</a>
         <a href="#contact">Help</a>
+        <a href="#services">Our Services</a>
+        {% if user.is_authenticated %}
+            <a href="{% url 'users:logout_user' %}">Logout</a>
+        {% else %}
+            <a href="#Register">Register</a>
+            <a href="{% url 'users:login_user' %}">Login</a>
+        {% endif %}
     </nav>
     
     {% block content %}
@@ -35,5 +38,6 @@
     <footer>
         <p>&copy; 2025 Academic Issue Tracking System. All rights reserved.</p>
     </footer>
+    <script src='{% static 'javascript/main.js' %}'></script>
 </body>
 </html>

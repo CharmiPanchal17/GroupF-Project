@@ -5,12 +5,59 @@ Home
 {% endblock %}
 
 {% block content %}
-My home page<br>
-My home page<br>
-My home page<br>
-My home page<br>
-My home page<br>
-My home page<br>
+<section class="hero">
+    <h1>Secure Your studies with our follow-up system to get in touch with different lecturers</h1>
+    <p>Register now and get in touch with lecturers to solve your issues</p>
+    <div class="dropdown">
+        <a href="#" class="btn register-btn">Register</a>
+        <div class="dropdown-content">
+            <a href="{% url 'users:register_student' %}" class="dropdown-option">As Student</a>
+            <a href="{% url 'users:register_lecturer' %}" class="dropdown-option">As Lecturer</a>
+        </div>
+    </div>
+</section>
+
+<section id="about" class="section">
+    <h2>About Us</h2>
+   <p>Academic Issue Tracking System offers a wide range platform to students to interact with different</p>
+    <p>lecturers in their respective collages and courses to workout issues concerning results </p>
+    <p>Study and perform well for all your results will be approved</p>
+    <h2>Contact Us</h2>
+    <p>Have questions? We're here to help!</p>
+    <p>Email: academicissuetrackingsystem@gmail.com</p>
+    <p>Phone: +256760616221</p>
+</section>
+
+<section id="services" class="section">
+    <h2>Our Services</h2>
+    <div class="services">
+        <div>
+             <h3>help to get in touch with lecturers</h3>
+            <h3>interact with different students</h3>
+            <h3>ensure no missing marks without valid reason</h3>
+        
+    </div>
+</section>
+
+<section id="Register" class="section">
+    <h2>Register Now</h2>
+    <p>And be in touch with different lecturers of your course</p>
+    <div class="dropdown">
+        <a href="#" class="btn register-btn">Register now</a>
+        <div class="dropdown-content">
+            <a href="{% url 'users:register_student' %}" class="dropdown-option">As Student</a>
+            <a href="{% url 'users:register_lecturer' %}" class="dropdown-option">As Lecturer</a>
+        </div>
+    </div>
+</section>
+
+<section id="contact" class="section">
+    <h2>Help</h2>
+    <p>Have questions? Your issue was not followed!</p>
+    <p>You can reach out to your academic registrar now</p>
+    <p>and get helped accordingly</p>
+    <a href="#" class="btn">Get Help now</a>
+</section>
 {% endblock %}
 
 
