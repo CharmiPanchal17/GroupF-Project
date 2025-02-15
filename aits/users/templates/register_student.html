@@ -1,0 +1,30 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+register_student
+{% endblock %}
+
+{% block content %}
+<body>
+    <div class="container">
+        <h1>Student Register</h1>
+        <form method="post" action="/register/student/">
+            {% csrf_token %}
+            
+            <label for="username">Enter your username</label>
+            {{ form.username }}
+            {{ form.username.errors }}
+
+            <label for="password1">Enter your Password</label>
+            {{ form.password1 }}
+            {{ form.password1.errors }}
+            
+            <label for="password2">Confirm Password</label>
+            {{ form.password2 }}
+            {{ form.password2.errors }}
+
+            <button type="submit">Register</button>
+        </form>
+    </div>
+</body>
+{% endblock %}
