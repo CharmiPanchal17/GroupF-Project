@@ -36,7 +36,7 @@ def register_lecturer(request):
     return render(request, 'register_lecturer.html' , {"form":form})
 
 
-def login_user(request):
+def login_student(request):
     if request.method == 'POST':
         form = AuthenticationForm(data=request.POST)
         if form.is_valid():
@@ -47,7 +47,21 @@ def login_user(request):
                 return redirect('issues:student_dashboard')
     else:
         form = AuthenticationForm()
-    return render(request, 'login.html', {"form" : form })
+    return render(request, 'login_student.html', {"form" : form })
+
+def login_lecturer(request):
+    if request.method == 'POST':
+        form = AuthenticationForm(data=request.POST)
+        if form.is_valid():
+            login(request, form.get_user())
+            if 'next' in request.POST:
+                return redirect(request.POST.get('next'))
+            else:
+                return redirect('issues:lecturer_dashboard')
+    else:
+        form = AuthenticationForm()
+    return render(request, 'login_lecturer.html', {"form" : form })
+
 
 def logout_user(request):
     logout(request)
