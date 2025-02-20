@@ -12,4 +12,14 @@ class Student(models.Model):
 
     def __str__(self):
         return self.fullname
+    
+class Lecturer(models.Model):
+    username = models.CharField(max_length=100, unique=True)
+    fullname = models.CharField(max_length=255)
+    lecturer_registration_number = models.CharField(max_length=50, unique=True)
+    email = models.EmailField(unique=True)
+    password = models.CharField(max_length=255) 
+
+    def __str__(self):
+        return self.fullname
 

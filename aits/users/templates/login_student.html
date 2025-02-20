@@ -1,0 +1,29 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+login_student
+{% endblock %}
+
+{% block content %}
+<body>
+    <div class="container">
+        <h1>Login Student</h1>
+        <form method="post" action="/login_student/">
+            {% csrf_token %}
+
+            {{ form }}
+            {% if request.GET.next %}
+                <input type="hidden" name ="next" value="{{ request.GET.next }}"/>
+            {% endif %}
+            <button type="submit">Submit</button>
+            <div class="col-12 text-lg-right">
+                <a href="#" class="c-black">Forgot password?</a>
+            </div>
+            <br>
+            <h3 class="c-black">First time here?</h3>
+            <div class="dropdown">
+                <a href="{% url 'users:register_student' %}">Sign up</a>
+            </div>
+        </form>
+    </div>
+{% endblock %}

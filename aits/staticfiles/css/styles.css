@@ -102,7 +102,7 @@ nav a:hover {
     width: 450px;
 }
 footer {
-    background-color: #1458a6;
+    background-color: #3181dc;
     color: white;
     text-align: center;
     padding: 10px 0;
@@ -213,4 +213,105 @@ button {
 }
 button:hover {
     background-color: #0056b3;
+}
+
+
+.navbar {
+    background:rgb(233, 237, 254);
+    padding: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.menu-container {
+    width: 100%;
+}
+
+.hamburger-menu {
+    font-size: 24px;
+    color: black;
+    cursor: pointer;
+    display: block;
+}
+
+/* Sidebar Menu */
+.side-menu {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color:rgb(172, 217, 252); 
+    overflow-x: hidden;
+    transition: 0.3s;
+    padding-top: 60px;
+}
+
+.side-menu a {
+    padding: 15px;
+    text-decoration: none;
+    font-size: 20px;
+    color: black;
+    display: block;
+    transition: 0.3s;
+}
+
+.side-menu a:hover {
+    background-color:rgb(85, 196, 106); /* Slightly darker blue */
+}
+
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-size: 30px;
+    color: black;
+    cursor: pointer;
+}
+
+/* Dropdown Styling */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.dropdown-content a {
+    padding: 12px 16px;
+    display: block;
+    color: black;
+    text-decoration: none;
+}
+
+.dropdown-content a:hover {
+    background-color: #ddd;
+}
+
+/* Section Styling */
+.section {
+    padding: 20px;
+    background: #f4f4f4;
+    margin: 20px;
+}
+
+.btn {
+    background: #007bff;
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    display: inline-block;
+    margin-top: 10px;
 }

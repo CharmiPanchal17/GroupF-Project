@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.password_validation import validate_password
-from .models import Student
+from .models import Student, Lecturer
 
 class StudentRegistrationForm(forms.ModelForm):
     password1 = forms.CharField(widget=forms.PasswordInput, label="Password")
@@ -23,7 +23,34 @@ class StudentRegistrationForm(forms.ModelForm):
 
     def save(self, commit=True):
         student = super().save(commit=False)
-        student.password = make_password(self.cleaned_data["password1"])  # Hash the password
+        student.password = make_password(self.cleaned_data["password1"])
         if commit:
             student.save()
         return student
+    
+
+
+class LecturerRegistrationForm(forms.ModelForm):
+    password1 = forms.CharField(widget=forms.PasswordInput, label="Password")
+    password2 = forms.CharField(widget=forms.PasswordInput, label="Confirm Password")
+
+    class Meta:
+        model = Lecturer
+        fields = ['username', 'fullname', 'lecturer_registration_number', 'email']
+
+    def clean(self):
+        cleaned_data = super().clean()
+        password1 = cleaned_data.get("password1")
+        validate_password(password1)
+        password2 = cleaned_data.get("password2")
+
+        if password1 and password2 and password1 != password2:
+            raise forms.ValidationError("Passwords do not match.")
+        return cleaned_data
+
+    def save(self, commit=True):
+        lecturer = super().save(commit=False)
+        lecturer.password = make_password(self.cleaned_data["password1"])
+        if commit:
+            lecturer.save()
+        return lecturer

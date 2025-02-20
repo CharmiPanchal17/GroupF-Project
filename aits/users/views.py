@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .forms import StudentRegistrationForm
+from .forms import StudentRegistrationForm, LecturerRegistrationForm
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import login, logout, authenticate
 from .models import Student
@@ -23,16 +23,18 @@ def register_student(request):
         form =StudentRegistrationForm()
     return render(request, 'register_student.html' , {"form":form})
 
-
 def register_lecturer(request):
-    form = UserCreationForm()
     if request.method == 'POST':
-        form = UserCreationForm(request.POST)
+        form = LecturerRegistrationForm(request.POST)
         if form.is_valid():
-            login(request, form.save())
+            form.save()
+            student = form.save()
+            user = authenticate(username=student.username, password=request.POST["password1"])
+            if user is not None:
+                login(request, user)
             return redirect("issues:lecturer_dashboard")
     else:
-        form =UserCreationForm()
+        form =StudentRegistrationForm()
     return render(request, 'register_lecturer.html' , {"form":form})
 
 
