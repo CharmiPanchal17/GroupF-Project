@@ -60,7 +60,7 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",  # React App URL
 ]
 
-ROOT_URLCONF = 'Issue.urls'
+ROOT_URLCONF = 'AITS.urls'
 
 TEMPLATES = [
     {
