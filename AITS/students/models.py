@@ -4,7 +4,7 @@ from django.db import models
 class Studententry(models.Model):
     from django.db import models
 
-class Student(models.Model):
+
     # Define choices for year
     YEAR_CHOICES = [
         ('1', 'First Year'),
