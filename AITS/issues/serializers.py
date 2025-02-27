@@ -1,14 +1,12 @@
 from rest_framework import serializers
-from .models import RegisteredStudent
+from django.contrib.auth import get_user_model
+from .models import Student, Lecturer, Registrar, Issue
 
-# class IssueSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = Issue
-#         fields = '__all__'
+User = get_user_model()
 
-class RegisteredStudentSerializer(serializers.ModelSerializer):
+class StudentSerializer(serializers.ModelSerializer):
     class Meta:
-        model = RegisteredStudent
+        model = Student
         fields = '__all__'
 
         
