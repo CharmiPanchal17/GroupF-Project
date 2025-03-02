@@ -7,13 +7,13 @@ import FetchData from './components/FetchData';
 function App() {
   return (
     <div className= 'App'>
-      <h1>Welcome to AITS </h1>
+      <h1>Welcome to AITS</h1>
       <FetchData/>
     </div>
   );
 }
 
-const FetchData = () => {
+function FetchData(){
   const [data, setData] = useState([]);
 
   useEffect(() => {
