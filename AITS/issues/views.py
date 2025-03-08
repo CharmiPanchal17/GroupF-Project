@@ -12,7 +12,7 @@ from django.utils import timezone
 
 User = get_user_model()
 
-# ✅ CREATE USER
+# CREATING USER
 @api_view(['POST'])
 def create_user(request):
     serializer = UserSerializer(data=request.data)
@@ -21,14 +21,14 @@ def create_user(request):
         return Response(serializer.data, status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-# ✅ LIST USERS - Fetch only necessary fields
+#LISTING USERS - Fetching only necessary fields
 @api_view(['GET'])
 def list_users(request):
     users = User.objects.only('id', 'username', 'role', 'email')  # Optimized
     serializer = UserSerializer(users, many=True)
     return Response(serializer.data)
 
-# ✅ CREATE STUDENT
+# CREATING A STUDENT
 @api_view(['POST'])
 def create_student(request):
     serializer = StudentSerializer(data=request.data)
@@ -37,14 +37,14 @@ def create_student(request):
         return Response(serializer.data, status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-# ✅ LIST STUDENTS - Filter by role
+# LISTING STUDENTS 
 @api_view(['GET'])
 def list_students(request):
     students = Student.objects.select_related('user').all()  # Optimized with select_related
     serializer = StudentSerializer(students, many=True)
     return Response(serializer.data)
 
-# ✅ CREATE LECTURER
+# CREATING LECTURER
 @api_view(['POST'])
 def create_lecturer(request):
     serializer = LecturerSerializer(data=request.data)
@@ -53,14 +53,14 @@ def create_lecturer(request):
         return Response(serializer.data, status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-# ✅ LIST LECTURERS - Filter by role
+# LISTING LECTURERS
 @api_view(['GET'])
 def list_lecturers(request):
     lecturers = Lecturer.objects.select_related('user').all()
     serializer = LecturerSerializer(lecturers, many=True)
     return Response(serializer.data)
 
-# ✅ CREATE REGISTRAR
+# CREATING REGISTRAR
 @api_view(['POST'])
 def create_registrar(request):
     serializer = RegistrarSerializer(data=request.data)
@@ -69,14 +69,14 @@ def create_registrar(request):
         return Response(serializer.data, status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-# ✅ LIST REGISTRARS
+# LISTING REGISTRARS
 @api_view(['GET'])
 def list_registrars(request):
     registrars = Registrar.objects.select_related('user').all()
     serializer = RegistrarSerializer(registrars, many=True)
     return Response(serializer.data)
 
-# ✅ CREATE ISSUE - Students only
+# CREATING AN ISSUE BY Students only
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
 def create_issue(request):
@@ -89,7 +89,7 @@ def create_issue(request):
         return Response(serializer.data, status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-# ✅ LIST ISSUES - Optimized with filters
+# LISTING ISSUES
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def list_issues(request):
@@ -106,7 +106,7 @@ def list_issues(request):
     serializer = IssueSerializer(issues, many=True)
     return Response(serializer.data)
 
-# ✅ ASSIGN ISSUE - Registrars only
+# ASSIGNING ISSUE 
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
 def assign_issue(request, issue_id, lecturer_id):
@@ -127,7 +127,7 @@ def assign_issue(request, issue_id, lecturer_id):
     
     return Response({"message": f"Issue {issue_id} assigned to {lecturer.username}."}, status=status.HTTP_200_OK)
 
-# ✅ RESOLVE ISSUE - Only assigned lecturers
+# RESOLVING ISSUE 
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
 def resolve_issue(request, issue_id):
@@ -145,7 +145,7 @@ def resolve_issue(request, issue_id):
 
     return Response({"message": f"Issue {issue_id} resolved."}, status=status.HTTP_200_OK)
 
-# ✅ LIST NOTIFICATIONS - Optimized
+# LISTING NOTIFICATIONS
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def list_notifications(request):
