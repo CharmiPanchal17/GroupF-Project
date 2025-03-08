@@ -65,10 +65,6 @@ class User(AbstractUser):
             message=f"Issue resolved: {issue.category}"
         )
 
-# class Student(models.Model):
-#     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='student')
-#     student_id = models.CharField(max_length=50, unique=True)
-#     department = models.CharField(max_length=100)
 class Student(models.Model):
     YEAR_CHOICES = [
         (1, 'Year 1'),
