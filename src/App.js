@@ -1,13 +1,15 @@
-import logo from './logo.svg';
+import logo from './logo.jpeg';
 import './App.css';
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import FetchData from './components/FetchData';
+import Navbar from './components/Navbar';
 
 function App() {
   return (
     <div className= 'App'>
       <h1>Welcome to AITS</h1>
+      <Navbar/>
       <FetchData/>
     </div>
   );
