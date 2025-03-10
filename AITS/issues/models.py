@@ -34,17 +34,6 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
 
-    groups = models.ManyToManyField(
-        'auth.Group',
-        related_name='custom_user_set',  # Avoid conflict
-        blank=True
-    )
-    user_permissions = models.ManyToManyField(
-        'auth.Permission',
-        related_name='custom_user_permissions_set',  # Avoid conflict
-        blank=True
-    )
-
     objects = CustomUserManager()
 
     USERNAME_FIELD = 'email'
@@ -52,7 +41,6 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return self.email
-
 
 
     def submit_issue(self, category, description):
