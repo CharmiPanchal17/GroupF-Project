@@ -2,16 +2,24 @@ import logo from './logo.jpeg';
 import './App.css';
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import FetchData from './components/FetchData';
 import Navbar from './components/Navbar';
+import { BrowserRouter as Router,Routes,Route} from 'react-router-dom';
 
+function Home() {
+  return <h1>Welcome to Academic Issue Tracking System</h1>
+}
 function App() {
   return (
-    <div className= 'App'>
-      <h1>Welcome to AITS</h1>
+    <>
+    <Router>
       <Navbar/>
-      <FetchData/>
-    </div>
+      <Routes>
+        <Route path='/' exact component={Home}/>
+        <Route path='/fetchdata' component={FetchData}/> 
+      </Routes>
+    </Router>
+    </>
+        
   );
 }
 
@@ -39,26 +47,5 @@ function FetchData(){
     </div>
   );
 };
-
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
 
 export default App;
