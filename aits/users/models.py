@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser, BaseUserManager
+from django.core.validators import RegexValidator
 
-# Custom UserManager to handle email as the USERNAME_FIELD
 class UserManager(BaseUserManager):
     def create_user(self, email, password=None, **extra_fields):
         if not email:
@@ -21,36 +21,38 @@ class UserManager(BaseUserManager):
             raise ValueError('Superuser must have is_superuser=True.')
         return self.create_user(email, password, **extra_fields)
 
-# Create your models here
 class User(AbstractUser):
     ROLES = (
         ('student', 'Student'),
         ('lecturer', 'Lecturer'),
         ('registrar', 'Registrar'),
     )
+
+    number_validator = RegexValidator(
+        regex=r'^[A-Za-z0-9-]+$',
+        message='Only alphanumeric characters and hyphens are allowed',
+    )
+
     email = models.EmailField(unique=True)
+    username = models.CharField(max_length=150, blank=True, null=True, unique=True)
     role = models.CharField(max_length=20, choices=ROLES, default='student')
-    student_number = models.CharField(max_length=50, unique=True, blank=True, null=True)  # Fixed typo: "nunmber" to "number"
-    registration_number = models.CharField(max_length=50, unique=True, blank=True, null=True)
-    lecturer_reg_number = models.CharField(max_length=50, unique=True, blank=True, null=True)
+    student_number = models.CharField(max_length=50, unique=True, blank=True, null=True, validators=[number_validator]) 
+    registration_number = models.CharField(max_length=50, unique=True, blank=True, null=True,validators=[number_validator])
+    lecturer_reg_number = models.CharField(max_length=50, unique=True, blank=True, null=True, validators=[number_validator])
     
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['first_name', 'last_name']
 
-    # Assign the custom UserManager
     objects = UserManager()
 
-    groups = models.ManyToManyField(
-        'auth.Group',
-        related_name='custom_user_groups',
-        blank=True,
-    )
-
-    user_permissions = models.ManyToManyField(
-        'auth.Permission',
-        related_name='custom_user_permissions',
-        blank=True,
-    )
-    
+    class Meta:
+        permissions = [
+            ('log_issue','Can log an issue'),
+            ('view_issue','Can view issues'),
+            ('resolve_issue','Can resolve issues'),
+            ('provide_feedback','Can provide feedback'),
+            ('assign_issue','Can assign issues to lecturers'),
+            ('oversee_issues','Can oversee all issues')
+        ]
     def __str__(self):
-        return self.email
+        return f'{self.email}({self.get_role_display()})'
