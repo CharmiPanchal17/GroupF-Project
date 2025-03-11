@@ -1,9 +1,14 @@
-import logo from './logo.jpeg';
+
 import './App.css';
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Navbar from './components/Navbar';
 import { BrowserRouter as Router,Routes,Route} from 'react-router-dom';
+import StudentDashboard from './pages/studentDashboard';
+import Login from "./pages/loginpage";
+import AcademicIssuePage from './pages/issue';
+
+
 
 function Home() {
   return <h1>Welcome to Academic Issue Tracking System</h1>
@@ -17,6 +22,16 @@ function App() {
         <Route path='/' exact component={Home}/>
         <Route path='/fetchdata' component={FetchData}/> 
       </Routes>
+      <Routes>
+        <Route path='login' component={Login}/>
+      </Routes>
+      <Routes>
+        <Route path='/studentDashboard' component={StudentDashboard}/>
+      </Routes>
+      <Routes>
+        <Route path='/issues' component={AcademicIssuePage}/>
+      </Routes>
+
     </Router>
     </>
         
