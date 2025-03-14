@@ -1,7 +1,10 @@
 import React, {useState} from 'react';
 import { Link } from "react-router-dom";
 import './Navbar.css';
-import { Button } from './buttons';
+import { Button } from './Button';
+import StudentDashboard from '../pages/studentDashboard';
+import AcademicIssuePage from '../pages/issue';
+import Login from '../pages/loginpage';
 
 function Navbar() {
 const {click, setClick} = useState(false);
@@ -33,7 +36,7 @@ window.addEventListener('resize', showButton);
         </Link>
       </li>
       <li className='nav-item'>   
-        <Link to='/dashboard' className='nav-links' onClick={closeMobileMenu}>
+        <Link to='/StudentDashboard' className='nav-links' onClick={StudentDashboard}>
           Dashboard
         </Link>
       </li>
@@ -43,7 +46,7 @@ window.addEventListener('resize', showButton);
         </Link>
       </li>
       <li className='nav-item'>   
-        <Link to='/issues' className='nav-links' onClick={closeMobileMenu}>
+        <Link to='/issue' className='nav-links' onClick={AcademicIssuePage}>
           Issues
         </Link>
       </li>

@@ -7,12 +7,8 @@ import { BrowserRouter as Router,Routes,Route} from 'react-router-dom';
 import StudentDashboard from './pages/studentDashboard';
 import Login from "./pages/loginpage";
 import AcademicIssuePage from './pages/issue';
+import Home from './pages/home';
 
-
-
-function Home() {
-  return <h1>Welcome to Academic Issue Tracking System</h1>
-}
 function App() {
   return (
     <>
@@ -26,7 +22,7 @@ function App() {
         <Route path='login' component={Login}/>
       </Routes>
       <Routes>
-        <Route path='/studentDashboard' component={StudentDashboard}/>
+        <Route path='/StudentDashboard' component={StudentDashboard}/>
       </Routes>
       <Routes>
         <Route path='/issues' component={AcademicIssuePage}/>

@@ -1,11 +1,13 @@
 import React from 'react';
 import '../App.css';
-function home() {
-  return (
+import HeroSection from '../components/HeroSection';
+function Home() {
+  console.log("Home");
+    return (
     <div>
-      
+      <HeroSection/>
     </div>
   )
 }
 
-export default home;
+export default Home;

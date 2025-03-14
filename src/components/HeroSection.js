@@ -1,33 +1,21 @@
-import React from 'react';
-import '../App.css';
-import { Button } from './Button';
+import React from "react";
 import './HeroSection.css';
 
-function HeroSection() {
+const HeroSection = () => {
+  console.log("HeroSection");
   return (
-    <div className='hero-container'>
-      <video src='/videos/video-1.mp4' autoPlay loop muted />
-      <h1>ADVENTURE AWAITS</h1>
-      <p>What are you waiting for?</p>
-      <div className='hero-btns'>
-        <Button
-          className='btns'
-          buttonStyle='btn--outline'
-          buttonSize='btn--large'
-        >
-          GET STARTED
-        </Button>
-        <Button
-          className='btns'
-          buttonStyle='btn--primary'
-          buttonSize='btn--large'
-          onClick={console.log('hey')}
-        >
-          WATCH TRAILER <i className='far fa-play-circle' />
-        </Button>
-      </div>
+    <div className="flex flex-col items-center text-center p-12 md:p-24">
+      <h1 className="text-3xl md:text-5xl font-bold text-blue-600">
+        Welcome to Our Platform
+      </h1>
+      <p className="text-lg md:text-xl text-gray-700 mt-4">
+        Your academic issue tracking made simple and efficient.
+      </p>
+      <button className="mt-6 bg-blue-500 text-white px-6 py-2 rounded-md text-lg hover:bg-blue-700 transition">
+        Get Started
+      </button>
     </div>
   );
-}
+};
 
 export default HeroSection;
