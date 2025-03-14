@@ -11,7 +11,7 @@ class Issue(models.Model):
     title = models.CharField(max_length=200)
     description = models.TextField()
     submitted_by = models.ForeignKey(User,on_delete=models.CASCADE, related_name='issues_submitted')
-    assigned_to = models.ForeignKey(User, on_delete=models.SET_NULL, related_name='issues_assigned', null =True)
+    assigned_to = models.ForeignKey(User, on_delete=models.SET_NULL, related_name='issues_assigned', null =True, limit_choices_to={'role':'lecturer'})
     created_at = models.DateTimeField(auto_now_add=True)
     status = models.CharField(max_length=25, default='open')
 
