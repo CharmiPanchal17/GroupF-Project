@@ -9,7 +9,7 @@ class LecturerListSerializer(UserSerializer):
 class LecturerViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = LecturerListSerializer
     permission_classes = [permissions.IsAuthenticated]
-
+    
 class RegisterStudentView(generics.CreateAPIView):
     queryset = User.objects.all()
     permission_classes = [permissions.AllowAny]
@@ -22,16 +22,15 @@ class RegisterLecturerView(generics.CreateAPIView):
     serializer_class = LecturerSerializer
     permission_classes = [permissions.AllowAny]
 
-class RegisterRegistrarView(generics.CreateAPIView):  
+class RegisterRegistrarView(generics.CreateAPIView):
     queryset = User.objects.all()
     permission_classes = [permissions.AllowAny]
     serializer_class = RegistrarSerializer
-    permission_classes = [permissions.AllowAny] 
+    permission_classes = [permissions.AllowAny]
 
     def get_queryset(self):
         if self.request.user.role == 'registrar':
             return User.objects.filter(role='lecturer')
         return User.objects.none()
-
 
     
