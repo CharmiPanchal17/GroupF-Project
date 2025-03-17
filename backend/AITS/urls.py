@@ -1,4 +1,3 @@
-<<<<<<< HEAD:backend/AITS/urls.py
 """
 URL configuration for AITS project.
 
@@ -15,18 +14,10 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-=======
->>>>>>> 37a7d3c4 (connected my project to postgre):aits/aits/urls.py
 from django.contrib import admin
 from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-<<<<<<< HEAD:backend/AITS/urls.py
     path('api/', include('base.urls')), 
-=======
-    path('api/', include('api.urls')),
-    path('api/users/', include('users.urls')),
-    path('api/issues/', include('issues.urls')),
->>>>>>> 37a7d3c4 (connected my project to postgre):aits/aits/urls.py
 ]
