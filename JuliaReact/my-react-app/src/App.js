@@ -1,12 +1,16 @@
-// App.js
 import React from "react";
+import { useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import AcademicIssuePage from "./AITS_Pages/issuepage";
 import StudentDashboard from "./AITS_Pages/student dashboard ";
 import WelcomePage from "./AITS_Pages/WelcomePage";
-import LoginPage from "./AITS_Pages/LoginPage"; // Import your LoginPage component
+import LoginPage from "./AITS_Pages/LoginPage";
 
 function App() {
+  useEffect(() => {
+    document.title = "AITS";
+  }, []);
+  
   return (
     <Router>
       <Routes>
