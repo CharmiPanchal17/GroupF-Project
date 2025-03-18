@@ -1,20 +1,21 @@
 /* AcademicIssuePage.css */
 body {
-    background-color: rgb(166, 176, 180);
+    background-color: rgb(165, 217, 237);
     font-family: Arial, sans-serif;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
+    width: 100vw;
     margin: 0;
 }
 
 .container {
-    background: rgb(239, 239, 241);
+    background: rgb(165, 217, 237);
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    width: 400px;
+    width: 90vw;
     text-align: center; /* Centers text */
 }
 

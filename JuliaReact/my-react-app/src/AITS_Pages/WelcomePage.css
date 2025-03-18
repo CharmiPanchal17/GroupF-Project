@@ -3,14 +3,14 @@
     flex-direction: column;
     min-height: 100vh;
     font-family: 'Arial', sans-serif;
-    background: linear-gradient(135deg, #e0f7fa, #b2ebf2);
+    background: linear-gradient(to right,#3dc0ef,#7f50ff);
     color: #333;
   }
 
   .welcome-page-header {
     text-align: center;
     padding: 50px 20px;
-    background-color: rgba(255, 255, 255, 0.8);
+    background-color:aliceblue(121, 215, 253, 0.8);
     backdrop-filter: blur(10px);
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   }
@@ -27,7 +27,7 @@
 
   .welcome-page-header p {
     font-size: 1.1rem;
-    color: #666;
+    color:#333;
   }
 
   .welcome-page-main {
