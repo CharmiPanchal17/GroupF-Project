@@ -8,8 +8,9 @@ const WelcomePage = () => {
     <div className="welcome-page-container">
       <header className="welcome-page-header">
         <img src="/images/Aitslogo.png" alt="AITS Logo" className="welcome-page-logo"/>
-        <h1>Welcome to AITS</h1>
+        <h2>WELCOME TO AITS (Acacemic Issue Tracking System)</h2>
         <p>Your comprehensive academic management system.</p>
+        <p>How can we help you?</p>
       </header>
 
       <Navbar /> {/* Navbar moved outside main */}
