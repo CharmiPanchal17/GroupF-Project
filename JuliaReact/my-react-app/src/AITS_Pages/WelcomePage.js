@@ -2,6 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import './WelcomePage.css';
 import Navbar from '../components/Navbar';
+import LecturerDashboard from './LecturerDashboard';
+import StudentDashboard from './StudentDashboard';
 
 const WelcomePage = () => {
   return (
@@ -20,7 +22,7 @@ const WelcomePage = () => {
           <h2>Students</h2>
           <p>Access your courses, grades, and resources.</p>
           <div className="welcome-page-links">
-            <Link to="/student-login" className="welcome-page-link">Login</Link>
+            <Link to="/StudentDashboard" className="welcome-page-link" onCliick={StudentDashboard}>Login</Link>
             <Link to="/student-signup" className="welcome-page-link">Sign Up</Link>
           </div>
         </section>
@@ -29,7 +31,7 @@ const WelcomePage = () => {
           <h2>Lecturers</h2>
           <p>Manage courses, students, and academic tasks.</p>
           <div className="welcome-page-links">
-            <Link to="/lecturer-login" className="welcome-page-link">Login</Link>
+            <Link to='/LecturerDashboard' className='welcome-page-link' onClick={LecturerDashboard}>Login </Link>
             <Link to="/lecturer-signup" className="welcome-page-link">Sign Up</Link>
           </div>
         </section>
@@ -38,7 +40,7 @@ const WelcomePage = () => {
           <h2>Registrars</h2>
           <p>Administer student records and system settings.</p>
           <div className="welcome-page-links">
-            <Link to="/registrar-login" className="welcome-page-link">Login</Link>
+            <Link to="registrar-login" className="welcome-page-link">Login</Link>
             <Link to="/registrar-signup" className="welcome-page-link">Sign Up</Link>
           </div>
         </section>
