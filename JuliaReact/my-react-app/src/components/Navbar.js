@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from "react-router-dom";
 import './Navbar.css';
 import { Button } from './Button';
-import StudentDashboard from '../AITS_Pages/student dashboard ';
+import StudentDashboard from '../AITS_Pages/StudentDashboard';
 import AcademicIssuePage from '../AITS_Pages/issuepage';
 
 function Navbar() {

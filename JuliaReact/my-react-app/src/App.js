@@ -2,7 +2,7 @@ import React from "react";
 import { useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import AcademicIssuePage from "./AITS_Pages/issuepage";
-import StudentDashboard from "./AITS_Pages/student dashboard ";
+import StudentDashboard from "./AITS_Pages/StudentDashboard";
 import WelcomePage from "./AITS_Pages/WelcomePage";
 import LoginPage from "./AITS_Pages/LoginPage";
 
