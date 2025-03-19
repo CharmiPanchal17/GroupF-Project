@@ -4,4 +4,6 @@ from .models import Studententry
 class Studententryserializer(serializers.ModelSerializer):
     class Meta:
         model=Studententry
-        fields= '__all__'
+        fields= [
+            'name' ,'Student_ID'
+        ]
