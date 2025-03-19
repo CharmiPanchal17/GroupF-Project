@@ -2,7 +2,7 @@ from django.db import models
 
 # Create your models here.
 class Studententry(models.Model):
-    from django.db import models
+    
 
 
     # Define choices for year
@@ -16,7 +16,7 @@ class Studententry(models.Model):
     # Define choices for course
     COURSE_CHOICES = [
         ('cs', 'Computer Science'),
-        ('Li', ' Library andInformation Technology'),
+        ('Li', ' Library and Information Technology'),
         ('se', 'Software Engineering'),
     ]
     
