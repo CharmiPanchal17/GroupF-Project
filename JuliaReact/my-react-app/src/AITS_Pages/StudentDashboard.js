@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import "./StudentDashboard.css"; // Import the CSS file
+import { Link } from "react-router-dom";
+import "./StudentDashboard.css";
+
 
 const StudentDashboard = ({ user = {} }) => {
-  const navigate = useNavigate();
+  
 
   const [courseUnits, setCourseUnits] = useState([
     { name: "Mathematics", status: "resolved", comment: "" },
@@ -72,9 +73,10 @@ const StudentDashboard = ({ user = {} }) => {
         <button type="submit">Update Issues</button>
       </form>
 
-      <button onClick={() => navigate("/complaint")} className="report-btn">
-        Report an Issue
-      </button>
+      
+      <button className="report-btn">
+  <Link to="/AcademicIssuePage" className="report-btn-link">Report an Issue</Link>
+</button>
     </div>
   );
 };
