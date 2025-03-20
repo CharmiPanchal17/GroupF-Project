@@ -8,6 +8,8 @@ from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, Permis
 from django.db import models
 
 class CustomUserManager(BaseUserManager):
+    # Predefined registrar emails for validation
+REGISTRAR_EMAILS = ["registrar1@mak.ac.ug", "registrar2@mak.ac.ug"]  
     def create_user(self, email, password=None, **extra_fields):
         if not email:
             raise ValueError("The Email field must be set")
@@ -22,6 +24,20 @@ class CustomUserManager(BaseUserManager):
         extra_fields.setdefault("is_superuser", True)
         return self.create_user(email, password, **extra_fields)
 
+    def determine_role(self, email):
+        """Assign user role based on email domain."""
+        email_domain = email.split('@')[-1].lower()
+
+        if email_domain == "students.mak.ac.ug":
+            return "student"
+        elif email in REGISTRAR_EMAILS:
+            return "registrar"
+        elif email_domain == "mak.ac.ug":
+            return "lecturer"
+        else:
+            raise ValueError("Invalid email domain for user role assignment.")
+
+
 class User(AbstractBaseUser, PermissionsMixin):
     ROLE_CHOICES = [
         ('student', 'Student'),
@@ -30,7 +46,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     ]
 
     email = models.EmailField(unique=True)
-    role = models.CharField(max_length=10, choices=ROLE_CHOICES)
+    role = models.CharField(max_length=10, choices=ROLE_CHOICES ,editable=False)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
 
