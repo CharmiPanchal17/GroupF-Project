@@ -20,6 +20,7 @@ from django.http import HttpResponse
 from django.contrib import admin
 from django.urls import path,include
 from .views import login
+
 #def home(request):
     #return HttpResponse("Welcome to the home")
 
@@ -29,5 +30,6 @@ urlpatterns = [
     #path('',home,name="Home"),
     path('meineapp/',include('meineapp.urls')),
     path('students/',include('students.urls')),
-    path('api-auth/',include('rest_framework.urls'))
+    path('api-auth/',include('rest_framework.urls')),
+    path("users/",include('students.urls'))
 ]

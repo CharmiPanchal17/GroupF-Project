@@ -37,11 +37,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'meineapp',
+    #'meineapp',
     'students',
     'rest_framework',
+    'rest_framework_simplejwt',
     'corsheaders',
-    'Issue',
+    #'Issue',
+    'Finalapp',
 ]
 
 MIDDLEWARE = [
@@ -60,7 +62,15 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",  # React App URL
 ]
 
-ROOT_URLCONF = 'AITS.urls'
+AUTH_USER_MODEL = "Finalapp.CustomUser"
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+}
+
+ROOT_URLCONF = 'Finalapp.urls'
 
 TEMPLATES = [
     {
