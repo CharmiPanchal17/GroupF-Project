@@ -1,0 +1,48 @@
+.login-container {
+    text-align: center;
+    margin-top: 50px;
+}
+
+.login-container h2 {
+    font-size: 2rem;
+    color: blue;
+}
+
+.login-container input {
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 80%;
+    font-size: 1rem;
+}
+
+.login-container button{
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    background-color: aquamarine;
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.login-container button:hover {
+    background-color: #0d1beb;
+}
+
+.login-container p {
+    font-size: 1rem;
+    color: #555;
+}
+
+.login-container a {
+    color: #78d8df;
+    text-decoration: none;
+}
+
+.login-container a:hover{
+    text-decoration: underline;
+    color: #0d1beb;
+}
