@@ -7,19 +7,12 @@ const StudentDashboard = ({ user = {} }) => {
   
 
   const [courseUnits, setCourseUnits] = useState([
-    { name: "Mathematics", status: "resolved", comment: "" },
-    { name: "Computer literacy", status: "pending", comment: "" },
-    { name: "Programming", status: "denied", comment: "" },
-    { name: "Robotics", status: "pending", comment: "" },
-    { name: "Networking", status: "resolved", comment: "" }
+    { name: "Mathematics", status: "resolved"},
+    { name: "Computer literacy", status: "pending"},
+    { name: "Programming", status: "denied"},
+    { name: "Robotics", status: "pending"},
+    { name: "Networking", status: "resolved"}
   ]);
-
-  // Handle input changes
-  const handleInputChange = (index, field, value) => {
-    const updatedUnits = [...courseUnits];
-    updatedUnits[index][field] = value;
-    setCourseUnits(updatedUnits);
-  };
 
   // Handle form submission
   const handleSubmit = (event) => {
@@ -47,24 +40,10 @@ const StudentDashboard = ({ user = {} }) => {
             {courseUnits.map((course, index) => (
               <tr key={index} className={course.status}>
                 <td>{course.name}</td>
-                <td>
-                  <select
-                    value={course.status}
-                    onChange={(e) => handleInputChange(index, "status", e.target.value)}
-                  >
-                    <option value="resolved">Resolved</option>
-                    <option value="pending">Pending</option>
-                    <option value="denied">Denied</option>
-                  </select>
-                </td>
-                <td>
-                  <input
-                    type="text"
-                    placeholder="Add a comment"
-                    value={course.comment}
-                    onChange={(e) => handleInputChange(index, "comment", e.target.value)}
-                  />
-                </td>
+                <td>{course.status}</td>
+                <td>{course.comment}</td>
+                  
+                     
               </tr>
             ))}
           </tbody>
