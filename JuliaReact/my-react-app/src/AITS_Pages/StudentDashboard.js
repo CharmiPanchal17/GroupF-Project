@@ -7,11 +7,11 @@ const StudentDashboard = ({ user = {} }) => {
   
 
   const [courseUnits, setCourseUnits] = useState([
-    { name: "Mathematics", status: "resolved", comment: "" },
-    { name: "Computer literacy", status: "pending", comment: "" },
-    { name: "Programming", status: "denied", comment: "" },
-    { name: "Robotics", status: "pending", comment: "" },
-    { name: "Networking", status: "resolved", comment: "" }
+    { name: "Mathematics", status: "resolved"},
+    { name: "Computer literacy", status: "pending"},
+    { name: "Programming", status: "denied"},
+    { name: "Robotics", status: "pending"},
+    { name: "Networking", status: "resolved"}
   ]);
 
   // Handle input changes

@@ -28,6 +28,7 @@ const LecturerDashboard = () => {
                 <th>STUDENT NO.</th>
                 <th>ISSUE</th>
                 <th>DUE DATE</th>
+                <th>STATUS</th>
               </tr>
             </thead>
             <tbody>
@@ -36,6 +37,13 @@ const LecturerDashboard = () => {
                   <td>{item.student}</td>
                   <td>{item.issue}</td>
                   <td>{item.due}</td>
+                  <td>
+                    <select>
+                      <option value="resolved">Resolved</option>
+                      <option value="pending">Pending</option>
+                      <option value="denied">Denied</option>
+                      /</select>
+                  </td>
                 </tr>
               ))}
               {/* Empty rows for additional spacing */}
