@@ -1,0 +1,38 @@
+.dashboard-container {
+    font-family: Arial, sans-serif;
+  padding: 20px;
+}
+
+.title {
+    color: #007bff;
+    font-size: 24px;
+    margin-bottom: 10px;
+}  
+
+
+.course-section {
+  margin-bottom: 20px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+thead {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: left;
+}
+
+tbody {
+  background-color: #f9f9f9
+}
+
+.stats {
+  margin-top: 20px;
+  font-size: 14px;
+}
+
+
