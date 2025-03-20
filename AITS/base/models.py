@@ -133,7 +133,7 @@ class Department(models.Model):
 
 class Lecturer(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='lecturer')
-    department = models.ForeignKey(Department, on_delete=models.SET_NULL, null=False, blank=True, related_name='lecturers') 
+    department = models.ForeignKey(Department, on_delete=models.SET_NULL, null=True, blank=True, related_name='lecturers') 
 
 class Registrar(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='registrar')
