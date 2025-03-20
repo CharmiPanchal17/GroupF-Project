@@ -28,9 +28,18 @@ thead {
     text-align: center;
 }
 
-tbody {
-  background-color: #f9f9f9
-}
+  .resolved {
+    background-color: #28a745; /* Green */
+  }
+  
+  .pending {
+    background-color: #ff9800; /* Orange */
+  }
+  
+  .denied {
+    background-color: #dc3545; /* Red */
+  }
+
 
 .stats {
   margin-top: 40px;
