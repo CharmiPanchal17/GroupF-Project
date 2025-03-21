@@ -9,6 +9,7 @@ function Signup() {
       studentNumber: "",
       password: "",
     });
+}
 
     const [error, setError] = useState("")
     const navigate = useNavigate();
@@ -27,19 +28,28 @@ function Signup() {
         navigate("/login");
     
     };
-    return (
-        <div>
-            <h2>Signup</h2>
-            {error && <p style={{ color: "red" }}> {error} </p>}
-            <form onSubmit={handleSubmit}>
-                <input type="text" name="userName" placeholder="Username"
-                onChange={handleChange} required />
-                <input type="email" name="email" placeholder="Email" onChange={handleChange} required />
-                <input type="text" name="studentNumber" placeholder="Student Number" onChange={handleChange} />
-                <input type="password" name="password" placeholder="Password" onChange={handleChange} required />
-                <button type="submit">Singup</button>
-            </form>
+    const SignupLogin = () => {
+        return (
+            <div className="signup-container">
+                <div className="signup-header">
+                    <div className="signup-text">
+                        <div className="signup-inputs">
+                    <h2>Signup</h2>
+                    {error && <p style={{ color: "red" }}> {error} </p>}
+                    <form onSubmit={handleSubmit}>
+                        <input type="text" name="userName" placeholder="Username"
+                        onChange={handleChange} required />
+                        <input type="email" name="email" placeholder="Email" onChange={handleChange} required />
+                        <input type="text" name="studentNumber" placeholder="Student Number" onChange={handleChange} />
+                        <input type="password" name="password" placeholder="Password" onChange={handleChange} required />
+                        <button type="submit">Singup</button>
+                        <p>Have an account? <a href="/login">Login</a></p>
+                    
+                    </form>
+               </div> 
+            </div>
         </div>
+    </div>
     );
-}
-export default Signup;  
+} 
+export default SignupLogin;
