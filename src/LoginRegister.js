@@ -27,11 +27,8 @@ return(
     <div className="login-container">
         <h2>Login</h2>
         <form onSubmit={handleLogin}>
-            <input type="email" name= "email" 
-            placeholder="Email" onChange={handleChange} required />
-            <input type="password" name="password" 
-            placeholder="Password" onChange={handleChange} required />
-            <br />  
+            <input type="email" name= "email" placeholder="Email" onChange={handleChange} required />
+            <br />
             <button type="Submit">Login</button>
         </form>
         <p>Dont have an account? <a href="/signup">Signup</a></p>
