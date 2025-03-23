@@ -5,6 +5,7 @@ from django.contrib.auth.models import AbstractUser
 from django.db import models
 
 # Custom User Model
+REGISTRAR_EMAILS = ["registrar1@mak.ac.ug", "registrar2@mak.ac.ug"]  # Add actual registrar emails
 class CustomUser(AbstractUser):
     ROLE_CHOICES = (
         ('student', 'Student'),
@@ -13,7 +14,7 @@ class CustomUser(AbstractUser):
     )
     role = models.CharField(max_length=10, choices=ROLE_CHOICES, default='student')
     
-    REGISTRAR_EMAILS = ["registrar1@mak.ac.ug", "registrar2@mak.ac.ug"]  # Add actual registrar emails
+    
 
     def save(self, *args, **kwargs):
         email_domain = self.email.split('@')[-1].lower()
