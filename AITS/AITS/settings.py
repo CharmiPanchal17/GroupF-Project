@@ -37,11 +37,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'meineapp',
-    'students',
     'rest_framework',
+    'rest_framework_simplejwt',
     'corsheaders',
-    'Issue',
+    'Finalapp',
 ]
 
 MIDDLEWARE = [
@@ -60,7 +59,15 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",  # React App URL
 ]
 
-ROOT_URLCONF = 'AITS.urls'
+AUTH_USER_MODEL = "Finalapp.CustomUser"
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+}
+
+ROOT_URLCONF = 'Finalapp.urls'
 
 TEMPLATES = [
     {
@@ -86,8 +93,12 @@ WSGI_APPLICATION = 'AITS.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'Aits db',
+        'USER' : 'postgres',
+        'PASSWORD': '1234',
+         'HOST': 'localhost',
+         'PORT':'5432',
     }
 }
 
