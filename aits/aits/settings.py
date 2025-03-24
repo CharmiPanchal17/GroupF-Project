@@ -27,9 +27,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'users.apps.UsersConfig',
-    'issues.apps.IssuesConfig',
-    'api.apps.ApiConfig',
+    'base.apps.UsersConfig',
     'rest_framework',
     'rest_framework_simplejwt.token_blacklist',
     'corsheaders',
@@ -45,8 +43,8 @@ REST_FRAMEWORK = {
 }
 
 SIMPLE_JWT = {
-    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=5),
-    "REFRESH_TOKEN_LIFETIME": timedelta(days=30),
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=60),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
     "ROTATE_REFRESH_TOKENS": True,
     "BLACKLIST_AFTER_ROTATION": True,
     "UPDATE_LAST_LOGIN": False,
@@ -97,7 +95,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'aits.urls'
+ROOT_URLCONF = 'AITS.urls'
 
 TEMPLATES = [
     {
@@ -115,11 +113,12 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'aits.wsgi.application'
+WSGI_APPLICATION = 'AITS.wsgi.application'
 
 
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
+
 
 DATABASES = {
     'default': {
@@ -128,7 +127,7 @@ DATABASES = {
         'USER' : 'postgres',
         'PASSWORD' : 'Anthony.2023',
         'HOST' : 'localhost',
-        'PORT' : '5432'
+        'PORT' : '5432',
     }
 }
 
@@ -173,10 +172,15 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-AUTH_USER_MODEL = 'users.User'
+AUTH_USER_MODEL = 'base.User'
 
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:3000'
 ]
 
 CORS_ALLOW_CREDENTIALS = True
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend', 
+    'base.backends.EmailBackend',
+]
