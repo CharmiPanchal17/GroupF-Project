@@ -1,4 +1,4 @@
-import { userState } from "react"
+import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 
 const StudentDashboard = ({ user }) =>
@@ -17,14 +17,14 @@ const StudentDashboard = ({ user }) =>
                 <h1>Student Dashboard</h1>
                 <h2> Hi, {user.username}! </h2>
                 <p>Track your issueresolutins with AITS</p>
-                <GamepadButton
+                <button
                 onClick={() => navigate("/complaint")}
                 style={{ marginTop: "20px",
                     padding: "10px 20px",
                     fontSize: "16px", cursor: "pointer" }}
                     >
                         Submit an issue
-                    </GamepadButton>
+                    </button>
             </div>
         );
     };
