@@ -1,40 +1,46 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "/.Login.css"
+import "./SignupLogin.css"; // Corrected the import path
 
-const Login = ({ setUser }) =>{
+const Login = () => {
     const navigate = useNavigate();
-    const [credentials, setCredentials] = useState({ studentNumber: "", password: ""});
 
-};
-const handleChange = (e) => {
-    setCredentials({ ...credentials,[e.target.name]: e.target.value });
-    
+    const handleLogin = (e) => {
+        e.preventDefault();
+        console.log("User successfully logged in!");
+    };
+
+    return (
+        <div className="container">
+            <h2>Login</h2>
+            <form onSubmit={handleLogin}>
+                <div className="input-group">
+                    <input
+                        type="email"
+                        name="email"
+                        placeholder="Email"
+                        required
+                    />
+                </div>
+                <div className="input-group">
+                    <input
+                        type="password"
+                        name="password"
+                        placeholder="Password"
+                        required
+                    />
+                </div>
+                <button type="submit" className="submit" onClick={() => navigate("/StudentDashboard")}>Login</button>
+                </form>
+                 <p>
+                Don't have an account?{" "}
+                <span onClick={() => navigate("/signup")} style={{ color: "blue", cursor: "pointer" }}>
+                    Signup
+                </span>
+            </p>
+        </div>
+
+    );
 };
 
-const handleLogin = (e) => {
-    e.preventDefault();
-    const storedUsers = JSON.parse(localStorage.getItem("users")) || [];
-    const user = storedUsers.find(u => u.studentNumber === credentials.studentNumber && u.password === credentials.password);
-    
-    if (user) {
-        setUser({ isAuthenticated: true,firstName: user.name.split("")[0], role: user.role});
-        navigate(user.role ==="student" ? "/ student" : user.role ==="lecturer" ? "/lecturer" : "/register");
-    }
-};
-
-return(
-    <div className="login-container">
-        <h2>Login</h2>
-        <form onSubmit={handleLogin}>
-            <input type="email" name= "email" 
-            placeholder="Email" onChange={handleChange} required />
-            <input type="password" name="password" 
-            placeholder="Password" onChange={handleChange} required />
-            <br />  
-            <button type="Submit">Login</button>
-        </form>
-        <p>Dont have an account? <a href="/signup">Signup</a></p>
-    </div>
-);
 export default Login;
