@@ -17,12 +17,12 @@ const StudentDashboard = ({ user }) =>
         return (
             <div style={{ padding: "20px", textAlign: "left" }}>
                 <h1>Student Dashboard</h1>
-                <h2> Hi, {user?.username || "Student"}! </h2>
+                <h2> Hi, {user?.username || " "}! </h2>
                 <h3>Track your issue resolutions with AITS</h3>
 
                 <div className="course-units-container">
                     <div className="course-unit-header">
-                        <div className="course-unit-name=header">Course unit</div>
+                        <div className="course-unit-name-header">Course unit</div>
                         <div className="course-unit-status-header">Status</div>
                     </div>
                     <ul className="course-units-list">

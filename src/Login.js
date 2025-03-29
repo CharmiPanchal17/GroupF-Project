@@ -37,6 +37,8 @@ const Login = () => {
                 <span onClick={() => navigate("/signup")} style={{ color: "blue", cursor: "pointer" }}>
                     Signup
                 </span>
+                <span className="password">Forgot<a href="#">password</a>
+                </span>
             </p>
         </div>
 

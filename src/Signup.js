@@ -4,26 +4,32 @@ import './SignupLogin.css'
 
 const Signup = () => {
     const [studentNumber, setStudentNumber] = useState("");
+    const [role, setRole] = useState("");
     const [error, setError] = useState("");
     const navigate = useNavigate();
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        if (!/^\d{10}$/.test(studentNumber)) {setError("student number must be exactly 10 digits.");
+        if (role === "student" && !/^\d{10}$/.test(studentNumber)) {setError("student number must be exactly 10 digits.");
             return;
         }
         setError("");
-        console.log("user signed up:");
-        navigate("/login");// this will navigate to the login page
+        console.log(`User signed up as ${role}:`);
+
+        if (role === "student"){
+        navigate("/StudentDashboard");
+        } else if (role === "lecturer") {
+            navigate("/LecturerDashboard");
+        }
      };
 
         return (
             <div className="page-container">
+              
                 <div className="signup-container">
-                    <div className="header">
-                    <h1>WELCOME TO Aits!</h1>
-                <h2 style={{color:"purple", justifyContent:"center", textUnderlinePosition:2 }}>Signup</h2>
-                <form onSubmit={handleSubmit}> 
+                {/*<img src="/logo.jpg" alt="AITS logo" className="logo" />*/} 
+                <h2>Signup</h2>
+                <form> 
                     <div className="input-group">
                         <label>Username</label>
                           <input type="text" placeholder="Username"/></div>
@@ -40,7 +46,7 @@ const Signup = () => {
                                  <input type="password" placeholder="Password" /></div>
                                   
                                     {error && <p style={{ color: "red" }}>{error}</p>}             
-                    <button type="submit" onClick={() => navigate("/StudentDashboard")} style={{color:"plum", cursor:"pointer"}}>Signup</button>
+                    <button type="submit" className="submit" onClick={() => navigate("/StudentDashboard")} style={{cursor:"pointer"}}>Signup</button>
                 </form>
                     <p>
                         Have an account?{" "}
@@ -48,7 +54,8 @@ const Signup = () => {
                     </p>
                     </div>
                     </div>
-                    </div>
+                    
+        
                       
 
     

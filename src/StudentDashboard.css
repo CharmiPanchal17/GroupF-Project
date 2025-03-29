@@ -24,7 +24,7 @@
 /* Course units container */
 .course-units-container {
     margin-top: 20px;
-    color: black;
+    color: rgb(32, 27, 27);
 }
 
 .course-units-header{
@@ -35,19 +35,19 @@
     padding: 10px;
     border-bottom: 2px solid #333;
     flex: 1;
-    text-align: left;
+    text-align: right;
 }
 
 .course-units-name-header{
-    flex: 1;
     text-align: left;
     font-weight: bold;
+    font-size: 20px;
 }
 
 .course-units-status-header{
-    flex: 1;
     text-align: right;
     font-weight: bold;
+    font-size: 20px;
 }
 
 .course-units-list {
@@ -88,12 +88,12 @@
     font-size: 16px;
     cursor: pointer;
     background-color: rgb(228, 215, 228);
-    color: rgb(54, 46, 56);
+    color: rgb(5, 5, 5);
     border: none;
     border-radius: 5px;
     align-items: center;
 }
 
 .submit-issue-button:hover {
-    background-color: #7b6eb4;
+    background-color: #f0b2b7;
 }
