@@ -31,6 +31,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework_simplejwt.token_blacklist',
     'corsheaders',
+    'drf_yasg',
 ]
 
 REST_FRAMEWORK = {
@@ -69,6 +70,9 @@ SIMPLE_JWT = {
     "TOKEN_USER_CLASS": "rest_framework_simplejwt.models.TokenUser",
 
     "JTI_CLAIM": "jti",
+    "TOKEN_OBTAIN_SERIALIZER": "base.serializers.CustomTokenObtainPairSerializer",
+    
+    "TOKEN_USER_CLASS": "base.models.CustomTokenUser",
 
     "SLIDING_TOKEN_REFRESH_EXP_CLAIM": "refresh_exp",
     "SLIDING_TOKEN_LIFETIME": timedelta(minutes=5),
@@ -131,9 +135,20 @@ DATABASES = {
     }
 }
 
-
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'byamugishanthony3@gmail.com'
+EMAIL_HOST_PASSWORD = 'eujd huuf rxei apjx'
+DEFAULT_FROM_EMAIL = 'Academic Issue Tracking System'
+FRONTEND_URL = 'http://localhost:3000'
+
+VERIFICATION_TOKEN_LIFETIME = timedelta(hours=12)
+
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -181,6 +196,6 @@ CORS_ALLOWED_ORIGINS = [
 CORS_ALLOW_CREDENTIALS = True
 
 AUTHENTICATION_BACKENDS = [
-    'django.contrib.auth.backends.ModelBackend', 
     'base.backends.EmailBackend',
+    'django.contrib.auth.backends.ModelBackend',
 ]

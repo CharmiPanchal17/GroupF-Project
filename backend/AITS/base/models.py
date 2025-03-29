@@ -1,15 +1,19 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser, BaseUserManager
 from django.core.validators import RegexValidator
+import uuid
+from django.utils import timezone
+from django.conf import settings
+from django.core.mail import send_mail
+from django.contrib.sites.shortcuts import get_current_site
+from django.urls import reverse
 
 class UserManager(BaseUserManager):
-    def get_queryset(self):
-        return super().get_queryset()
-    
     def create_user(self, email, password=None, **extra_fields):
         if not email:
             raise ValueError('The Email field must be set')
         email = self.normalize_email(email)
+        extra_fields.setdefault('is_verified', False)
         user = self.model(email=email, **extra_fields)
         user.set_password(password)
         user.save(using=self._db)
@@ -18,11 +22,9 @@ class UserManager(BaseUserManager):
     def create_superuser(self, email, password=None, **extra_fields):
         extra_fields.setdefault('is_staff', True)
         extra_fields.setdefault('is_superuser', True)
-        if extra_fields.get('is_staff') is not True:
-            raise ValueError('Superuser must have is_staff=True.')
-        if extra_fields.get('is_superuser') is not True:
-            raise ValueError('Superuser must have is_superuser=True.')
+        extra_fields.setdefault('is_verified', True)
         return self.create_user(email, password, **extra_fields)
+
 
 class User(AbstractUser):
     ROLES = (
@@ -38,40 +40,37 @@ class User(AbstractUser):
 
     email = models.EmailField(unique=True)
     username = models.CharField(max_length=150, blank=True, null=True, unique=True)
+    is_staff = models.BooleanField(default=False)
+    is_verified = models.BooleanField(default=False)
+    verification_token = models.UUIDField(default=uuid.uuid4, editable=False)
+    token_created_at = models.DateTimeField(default=timezone.now)
     role = models.CharField(max_length=20, choices=ROLES, default='student')
-    student_number = models.CharField(max_length=50, unique=True, blank=True, null=True, validators=[number_validator]) 
+    student_number = models.CharField(max_length=50, unique=True, blank=True, null=True, validators=[number_validator])
     registration_number = models.CharField(max_length=50, unique=True, blank=True, null=True, validators=[number_validator])
     lecturer_reg_number = models.CharField(max_length=50, unique=True, blank=True, null=True, validators=[number_validator])
-    
+
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['first_name', 'last_name']
     objects = UserManager()
 
-class Issue(models.Model):
-    STATUS_CHOICES = (
-        ('open' , 'Open'),
-        ('pending' , 'Pending'),
-        ('resolved' , 'Resolved'),
-    )
-    title = models.CharField(max_length=200)
-    description = models.TextField()
-    submitted_by = models.ForeignKey(User,on_delete=models.CASCADE, related_name='issues_submitted')
-    assigned_to = models.ForeignKey(User, on_delete=models.SET_NULL, related_name='issues_assigned', null =True, limit_choices_to={'role':'lecturer'})
-    created_at = models.DateTimeField(auto_now_add=True)
-    status = models.CharField(max_length=25, default='open')
+    def generate_new_verification_token(self):
+        """Generates a new email verification token"""
+        self.verification_token = uuid.uuid4()
+        self.token_created_at = timezone.now()
+        self.save()
+        return self.verification_token
 
-    def __str__(self):
-        return self.title
+    def send_verification_email(self, request=None):
+        """Sends verification email to user"""
+        from .utils import send_verification_email  
+        send_verification_email(self, request)
 
-    class Meta:
-        permissions = [
-            ('log_issue', 'Can log an issue'),
-            ('can_view_issue', 'Can view issues'),
-            ('resolve_issue', 'Can resolve issues'),
-            ('provide_feedback', 'Can provide feedback'),
-            ('assign_issue', 'Can assign issues to lecturers'),
-            ('oversee_issues', 'Can oversee all issues')
-        ]
-    
+    def save(self, *args, **kwargs):
+        """Override save to send verification email when a new user is created"""
+        new_user = self.pk is None 
+        super().save(*args, **kwargs)
+        if new_user and not self.is_verified: 
+            self.send_verification_email()
+
     def __str__(self):
         return f'{self.email} ({self.get_role_display()})'
