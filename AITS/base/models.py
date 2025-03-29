@@ -1,31 +1,37 @@
-# users/models.py
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
+from django.core.validators import RegexValidator
 from django.utils import timezone
-from django.db import models
+import uuid
+from django.core.mail import send_mail
 
 # Predefined registrar emails for validation
-REGISTRAR_EMAILS = ["registrar1@mak.ac.ug", "registrar2@mak.ac.ug"] 
+REGISTRAR_EMAILS = ["registrar1@mak.ac.ug", "registrar2@mak.ac.ug"]
 
 class CustomUserManager(BaseUserManager):
     def create_user(self, email, password=None, **extra_fields):
         if not email:
             raise ValueError("The Email field must be set")
         email = self.normalize_email(email)
-        
+
         # Auto-assign role
         extra_fields["role"] = self.determine_role(email)
-        
+        extra_fields.setdefault('is_verified', False)  # Default to not verified
+
         user = self.model(email=email, **extra_fields)
         user.set_password(password)
         user.save(using=self._db)
+
+        # Send verification email
+        user.send_verification_email()
         return user
 
     def create_superuser(self, email, password=None, **extra_fields):
         extra_fields.setdefault("is_staff", True)
         extra_fields.setdefault("is_superuser", True)
+        extra_fields.setdefault("is_verified", True)
         return self.create_user(email, password, **extra_fields)
-    
+
     def determine_role(self, email):
         """Assign user role based on email domain."""
         email_domain = email.split('@')[-1].lower()
@@ -46,63 +52,49 @@ class User(AbstractBaseUser, PermissionsMixin):
         ('registrar', 'Registrar'),
     ]
 
+    number_validator = RegexValidator(
+        regex=r'^[A-Za-z0-9-]+$',
+        message='Only alphanumeric characters and hyphens are allowed',
+    )
+
     email = models.EmailField(unique=True)
     role = models.CharField(max_length=10, choices=ROLE_CHOICES)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
+    is_verified = models.BooleanField(default=False)
+    verification_token = models.UUIDField(default=uuid.uuid4, editable=False)
+    token_created_at = models.DateTimeField(default=timezone.now)
+
+    student_no = models.CharField(max_length=50, unique=True, blank=True, null=True, validators=[number_validator])
+    registration_number = models.CharField(max_length=50, unique=True, blank=True, null=True, validators=[number_validator])
 
     objects = CustomUserManager()
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
 
+    def generate_new_verification_token(self):
+        """Generates a new email verification token"""
+        self.verification_token = uuid.uuid4()
+        self.token_created_at = timezone.now()
+        self.save()
+        return self.verification_token
+
+    def send_verification_email(self):
+        """Sends verification email to user"""
+        subject = "Verify Your Email Address"
+        message = f"Click the link to verify your account: http://yourdomain.com/verify/{self.verification_token}/"
+        send_mail(subject, message, "noreply@yourdomain.com", [self.email])
+
+    def save(self, *args, **kwargs):
+        """Override save to send verification email when a new user is created"""
+        new_user = self.pk is None
+        super().save(*args, **kwargs)
+        if new_user and not self.is_verified:
+            self.send_verification_email()
+
     def __str__(self):
-        return self.email
-
-    def send_notification(self, recipient, message):
-        """Helper function to send a notification."""
-        Notification.objects.create(user=recipient, message=message)
-
-    def submit_issue(self, category, description):
-        if self.role != 'student':
-            raise PermissionError("Only students can submit issues.")
-        
-        issue = Issue.objects.create(
-            category=category,
-            status='pending',
-            description=description,
-            submitted_by=self
-        )
-
-        # Notifying the registrars
-        registrars = User.objects.filter(role='registrar')
-        for registrar in registrars:
-            self.send_notification(registrar, f"New issue submitted: {category} by {self.email}.")
-
-        return issue
-
-    def assign_issue(self, issue, lecturer):
-        if self.role != 'registrar':
-            raise PermissionError("Only Registrar can assign issues to lecturers")
-        if lecturer.role != 'lecturer':
-            raise ValueError("Issues can only be assigned to lecturers")
-        issue.assigned_to = lecturer
-        issue.status = 'in_progress'
-        issue.save()
-        self.send_notification(lecturer, f"You have been assigned Issue {issue.id}: {issue.category}.")
-        self.send_notification(issue.submitted_by, f"Your issue '{issue.category}' has been assigned to {lecturer.email}.")
-
-
-    def resolve_issue(self, issue):
-        if self.role != 'lecturer':
-            raise PermissionError("Only lecturers can resolve issues")
-        if issue.assigned_to != self:
-            raise PermissionError("You can only resolve issues assigned to you")
-        issue.status = 'resolved'
-        issue.resolved_at = timezone.now()
-        issue.save()
-        self.send_notification(issue.submitted_by, f"Your issue '{issue.category}' has been resolved.")
-
+        return f"{self.email} ({self.get_role_display()})"
 
 class Student(models.Model):
     YEAR_CHOICES = [
@@ -124,22 +116,20 @@ class Student(models.Model):
     course = models.CharField(max_length=50, choices=COURSE_CHOICES)
 
     def __str__(self):
-        return f"{self.user.username} - {self.course}"
+        return f"{self.user.email} - {self.course}"
 
 class Department(models.Model):
-    department_id=models.IntegerField(primary_key=True)
-    name= models.CharField(max_length=100)
-
+    department_id = models.IntegerField(primary_key=True)
+    name = models.CharField(max_length=100)
 
 class Lecturer(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='lecturer')
-    department = models.ForeignKey(Department, on_delete=models.SET_NULL, null=True, blank=True, related_name='lecturers') 
+    department = models.ForeignKey(Department, on_delete=models.SET_NULL, null=True, blank=True, related_name='lecturers')
 
 class Registrar(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='registrar')
-    college = models.CharField(max_length=100)  
-     
-     
+    college = models.CharField(max_length=100)
+
 class Issue(models.Model):
     STATUS_CHOICES = [
         ('pending', 'pending'),
@@ -164,4 +154,4 @@ class Notification(models.Model):
     created_at = models.DateTimeField(auto_now_add=True) 
 
     def __str__(self):
-        return f"Notification for {self.user.username}: {self.message}"
+        return f"Notification for {self.user.email}: {self.message}"
