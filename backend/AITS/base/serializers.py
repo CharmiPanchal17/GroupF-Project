@@ -1,15 +1,15 @@
 from rest_framework import serializers
 from django.contrib.auth import get_user_model
-from django.core.exceptions import ValidationError
+from django.contrib.auth.tokens import default_token_generator
 import jwt
 from django.conf import settings
+from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+from django.utils.encoding import force_bytes, force_str
 
 User = get_user_model()
 
 class BaseRegistrationSerializer(serializers.ModelSerializer):
-    """
-    Base serializer for user registration with common fields.
-    """
+    """Base serializer for user registration with common fields."""
     class Meta:
         model = User
         fields = ['email', 'username', 'password', 'first_name', 'last_name']
@@ -22,14 +22,11 @@ class BaseRegistrationSerializer(serializers.ModelSerializer):
             password=validated_data['password'],
             first_name=validated_data.get('first_name', ''),
             last_name=validated_data.get('last_name', ''),
-            role=validated_data.get('role', 'student')  # Default role
+            role=validated_data.get('role', 'student')
         )
         return user
 
 class StudentRegistrationSerializer(BaseRegistrationSerializer):
-    """
-    Serializer for student registration, requiring student_number.
-    """
     student_number = serializers.CharField(required=True)
 
     class Meta(BaseRegistrationSerializer.Meta):
@@ -46,9 +43,6 @@ class StudentRegistrationSerializer(BaseRegistrationSerializer):
         return super().create(validated_data)
 
 class LecturerRegistrationSerializer(BaseRegistrationSerializer):
-    """
-    Serializer for lecturer registration, requiring lecturer_reg_number.
-    """
     lecturer_reg_number = serializers.CharField(required=True)
 
     class Meta(BaseRegistrationSerializer.Meta):
@@ -65,51 +59,60 @@ class LecturerRegistrationSerializer(BaseRegistrationSerializer):
         return super().create(validated_data)
 
 class RegistrarRegistrationSerializer(BaseRegistrationSerializer):
-    """
-    Serializer for registrar registration (no additional fields required).
-    """
     def create(self, validated_data):
         validated_data['role'] = 'registrar'
         return super().create(validated_data)
 
 class VerificationSerializer(serializers.Serializer):
-    """
-    Serializer for email verification using JWT token.
-    """
     token = serializers.CharField()
 
     def validate(self, data):
         token = data['token']
         try:
-            # Decode JWT token
             payload = jwt.decode(token, settings.SECRET_KEY, algorithms=["HS256"])
             user_id = payload['user_id']
             user = User.objects.get(id=user_id)
 
-            # Check if already verified
             if user.is_verified:
-                raise ValidationError("Email is already verified.")
+                raise serializers.ValidationError("Email is already verified.")
 
-            # JWT expiration is handled by jwt.decode
             data['user'] = user
             return data
 
         except jwt.ExpiredSignatureError:
-            raise ValidationError("Verification link has expired.")
+            raise serializers.ValidationError("Verification link has expired.")
         except (jwt.InvalidTokenError, User.DoesNotExist):
-            raise ValidationError("Invalid verification token.")
+            raise serializers.ValidationError("Invalid verification token.")
 
 class ResendVerificationSerializer(serializers.Serializer):
-
     email = serializers.EmailField()
 
     def validate(self, data):
         try:
             user = User.objects.get(email=data['email'])
             if user.is_verified:
-                raise ValidationError("Email is already verified.")
+                raise serializers.ValidationError("Email is already verified.")
             
-            data['user'] = user  # Pass user object to the view
+            data['user'] = user
             return data
         except User.DoesNotExist:
-            raise ValidationError("User with this email does not exist.")
+            raise serializers.ValidationError("User with this email does not exist.")
+
+class PasswordResetSerializer(serializers.Serializer):
+    """Serializer for requesting password reset email"""
+    email = serializers.EmailField()
+
+    def validate_email(self, value):
+        if not User.objects.filter(email=value).exists():
+            raise serializers.ValidationError("No user found with this email.")
+        return value
+
+class PasswordResetConfirmSerializer(serializers.Serializer):
+    """Serializer for resetting password"""
+    new_password = serializers.CharField(write_only=True, min_length=8)
+    confirm_password = serializers.CharField(write_only=True)
+
+    def validate(self, data):
+        if data['new_password'] != data['confirm_password']:
+            raise serializers.ValidationError({"confirm_password": "Passwords do not match."})
+        return data

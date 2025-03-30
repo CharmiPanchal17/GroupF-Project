@@ -1,3 +1,4 @@
+# models.py (your provided User model with improvements)
 from django.db import models
 from django.contrib.auth.models import AbstractUser, BaseUserManager
 from django.core.validators import RegexValidator
@@ -23,8 +24,8 @@ class UserManager(BaseUserManager):
         extra_fields.setdefault('is_staff', True)
         extra_fields.setdefault('is_superuser', True)
         extra_fields.setdefault('is_verified', True)
+        extra_fields.setdefault('role', 'registrar')
         return self.create_user(email, password, **extra_fields)
-
 
 class User(AbstractUser):
     ROLES = (
@@ -62,8 +63,28 @@ class User(AbstractUser):
 
     def send_verification_email(self, request=None):
         """Sends verification email to user"""
-        from .utils import send_verification_email  
-        send_verification_email(self, request)
+        token = self.verification_token
+        verification_url = request.build_absolute_uri(
+            reverse('verify-email') + f'?token={token}'
+        )
+        
+        subject = 'Verify Your Email Address'
+        message = f'''
+        Hi {self.first_name or self.username},
+        
+        Please click the following link to verify your email address:
+        {verification_url}
+        
+        If you didn't create an account, please ignore this email.
+        '''
+        
+        send_mail(
+            subject,
+            message,
+            settings.DEFAULT_FROM_EMAIL,
+            [self.email],
+            fail_silently=False,
+        )
 
     def save(self, *args, **kwargs):
         """Override save to send verification email when a new user is created"""
