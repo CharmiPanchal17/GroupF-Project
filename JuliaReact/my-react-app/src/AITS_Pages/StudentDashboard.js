@@ -41,9 +41,7 @@ const StudentDashboard = ({ user = {} }) => {
               <tr key={index} className={course.status}>
                 <td>{course.name}</td>
                 <td>{course.status}</td>
-                <td>{course.comment}</td>
-                  
-                     
+                <td>{course.comment}</td>      
               </tr>
             ))}
           </tbody>
