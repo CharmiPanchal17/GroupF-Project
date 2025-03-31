@@ -5,6 +5,9 @@ import './Navbar.css';
 import { Button } from './Button';
 import StudentDashboard from '../AITS_Pages/StudentDashboard';
 import AcademicIssuePage from '../AITS_Pages/issuepage';
+import NotificationPage from '../utils/notifications';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function Navbar() {
   const [click, setClick] = useState(false);
@@ -50,7 +53,7 @@ function Navbar() {
               </Link>
             </li>
             <li className='nav-item'>
-              <Link to='/notifications' className='nav-links' onClick={closeMobileMenu}>
+              <Link to='/notifications' className='nav-links' onClick={NotificationPage}>
                 Notifications
               </Link>
             </li>
