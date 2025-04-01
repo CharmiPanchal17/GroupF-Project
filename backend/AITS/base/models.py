@@ -1,4 +1,3 @@
-# models.py (your provided User model with improvements)
 from django.db import models
 from django.contrib.auth.models import AbstractUser, BaseUserManager
 from django.core.validators import RegexValidator
