@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./AcademicIssuePage.css";
+import axios from "axiosInstance";
 
 const AcademicIssuePage = () => {
     const [selectedCourse, setSelectedCourse] = useState("");
@@ -35,10 +36,43 @@ const AcademicIssuePage = () => {
     const years = [1, 2, 3, 4];
     const semesters = [1, 2];
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
+         // Data object to send to the backend
+         const issueData = {
+            school: selectedSchool,
+            department: selectedDepartment,
+            course: selectedCourse,
+            year: selectedYear,
+            semester: selectedSemester,
+            course_unit: courseUnit,
+            lecturer_name: lecturerName,
+            issue_details: issueDetails,
+        };
+
+        try {
+            const response = await api.post("issues/", issueData);
+            console.log("Issue submitted:", response.data);
+
         setSuccessMessage(true);
+        setErrorMessage("");
+        // Clear form fields after successful submission
+        setSelectedSchool("");
+        setSelectedDepartment("");
+        setSelectedCourse("");
+        setSelectedYear("");
+        setSelectedSemester("");
+        setCourseUnit("");
+        setLecturerName("");
+        setIssueDetails("");
+
         setTimeout(() => setSuccessMessage(false), 3000);
+        }
+        catch (error) {
+            console.error("Error submitting issue:", error);
+            setSuccessMessage(false);
+            setErrorMessage("Failed to submit the issue. Please try again.");
+        }
     };
 
     return (
@@ -96,6 +130,7 @@ const AcademicIssuePage = () => {
                 <button type="submit">Submit</button>
             </form>
             {successMessage && <p className="success-message">Issue submitted successfully!</p>}
+            {errorMessage && <p className="error-message">{errorMessage}</p>}
         </div>
     );
 };
