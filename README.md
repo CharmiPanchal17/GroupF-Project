@@ -77,5 +77,3 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 # GroupF-Project
 Group F project to develop an Academic Issue Tracking System
  3ff758b7ce4ec3d6eb735630fbbe3b949c2138c0
-=======
->>>>>>> Stashed changes
