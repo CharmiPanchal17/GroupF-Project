@@ -1,4 +1,5 @@
 """
+ASGI config for AITS project.
 ASGI config for AITS_project project.
 
 It exposes the ASGI callable as a module-level variable named ``application``.
