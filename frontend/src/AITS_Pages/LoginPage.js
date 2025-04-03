@@ -15,11 +15,17 @@ const LoginPage = ({ setUser }) => {
   const handleLogin = async (e) => {
     e.preventDefault();
     const response = await authService.login(credentials)
+<<<<<<< HEAD
     if (response?.data?.access) {
       const token = response?.data?.access
       if (token) {
         window.location.reload();
       }
+=======
+    const token = response.data.access
+    if (token) {
+      window.location.reload();
+>>>>>>> b01ce388 (adding corsheaders)
     }
   };
 

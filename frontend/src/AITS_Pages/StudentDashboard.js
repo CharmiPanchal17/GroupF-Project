@@ -47,11 +47,14 @@ const StudentDashboard = ({ user = {} }) => {
     setIsModalOpen(false);
   };
 
+<<<<<<< HEAD
   const logOut = () => {
     localStorage.clear();
     window.location.reload();
 };
 
+=======
+>>>>>>> b01ce388 (adding corsheaders)
 
   return (
     <div className="dashboard-container">
@@ -104,10 +107,13 @@ const StudentDashboard = ({ user = {} }) => {
       <button className="report-btn" onClick={() => navigate("/student/academic-issues")}>
         Report an Issue
       </button>
+<<<<<<< HEAD
 
      
 
 <button onClick={logOut}>Log out</button>
+=======
+>>>>>>> b01ce388 (adding corsheaders)
     </div>
   );
 };
