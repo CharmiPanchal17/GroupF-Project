@@ -4,6 +4,7 @@ from django.core.validators import RegexValidator
 from django.utils import timezone
 import uuid
 from django.core.mail import send_mail
+from datetime import datetime
 
 # Predefined registrar emails for validation
 REGISTRAR_EMAILS = ["registrar1@mak.ac.ug", "registrar2@mak.ac.ug"]
@@ -131,22 +132,56 @@ class Registrar(models.Model):
     college = models.CharField(max_length=100)
 
 class Issue(models.Model):
+    SCIT = 'SCIT'
+    EALIS = 'EALIS'
+    SCHOOL_CHOICES = [
+        (SCIT, 'School of Computing and Information Technology'),
+        (EALIS, 'East African School of Library and Information Science'),
+    ]
+    
+    DEPARTMENT_CHOICES = [
+        ('1', 'Department of Computer Science'),
+        ('2', 'Department of Information Systems'),
+        ('3', 'Department of Information Technology'),
+        ('4', 'Department of Networks'),
+        ('5', 'Department of Library & Information Sciences'),
+        ('6', 'Department of Records & Archives Management'),
+    ]
+    
+    COURSE_CHOICES = [
+        ('BSCS', 'Bachelor of Science in Computer Science'),
+        ('BIST', 'Bachelor of Information Systems and Technology'),
+        ('IT', 'Bachelor of Information Technology'),
+        ('BSSE', 'Bachelor of Science in Software Engineering'),
+        ('BLIS', 'Bachelor of Library and Information Science'),
+        ('BRAM', 'Bachelor of Records and Archives Management'),
+    ]
+
     STATUS_CHOICES = [
         ('pending', 'pending'),
         ('in_progress', 'In Progress'),
         ('resolved', 'Resolved'),
     ]
+
+    SEMESTER_CHOICES = [
+        ('1', 'Semester 1'),
+        ('2', 'Semester 2'),
+    ]
     
-    category = models.CharField(max_length=100)  
+
+    year = models.PositiveIntegerField(default=datetime.now().year)
+    semester = models.CharField(max_length=1, choices=SEMESTER_CHOICES, null=True, blank=True)
+    course_unit = models.CharField(max_length=100)
+    lecturer_name = models.CharField(max_length=100, null=True, blank=True)
+    issue_details = models.TextField()
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pending') 
-    description = models.TextField()  
     submitted_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name="submitted_issues", limit_choices_to={"role": "student"})  
     assigned_to = models.ForeignKey(User, null=True, blank=True, on_delete=models.SET_NULL, related_name="assigned_issues", limit_choices_to={"role": "lecturer"}) 
     created_at = models.DateTimeField(auto_now_add=True) 
     resolved_at = models.DateTimeField(null=True, blank=True)    
     
     def __str__(self):
-        return f"Issue {self.id} - {self.category} ({self.status})"
+        return f"Issue {self.id} - ({self.status})"
 
 class Notification(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)  
