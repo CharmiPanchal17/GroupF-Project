@@ -18,6 +18,7 @@ class UserSerializer(serializers.ModelSerializer):
         """Create user using CustomUserManager and return it."""
         return User.objects.create_user(**validated_data)
 
+
 # STUDENT SERIALIZER
 class StudentSerializer(serializers.ModelSerializer):
     user = UserSerializer()
@@ -75,19 +76,41 @@ class RegistrarSerializer(serializers.ModelSerializer):
 
 # ISSUE SERIALIZER
 class IssueSerializer(serializers.ModelSerializer):
-    submitted_by = UserSerializer(read_only=True)
     assigned_to = UserSerializer(read_only=True)
+    student_details = serializers.SerializerMethodField()
 
     class Meta:
         model = Issue
-        fields = ['id', 'category', 'status', 'description', 'submitted_by', 'assigned_to', 'created_at', 'resolved_at']
-        read_only_fields = ['submitted_by', 'assigned_to', 'created_at', 'resolved_at']
+        fields = '__all__'
+        read_only_fields = ['submitted_by', 'assigned_to', 'created_at', 'resolved_at', 'student_details']
 
+    def update(self, instance, validated_data):
+        """
+        This method will update the instance with the validated data, only changing the fields that were provided.
+        """
+        # Loop through all the validated data and update only the fields that are available
+        for attr, value in validated_data.items():
+            # Skip read-only fields like 'submitted_by', 'assigned_to', etc.
+            if attr not in self.Meta.read_only_fields:
+                setattr(instance, attr, value)
+        
+        # Save the updated instance
+        instance.save()
+        return instance
+    
+    def get_student_details(self, obj):
+        try:
+            student = Student.objects.get(user=obj.submitted_by)
+            return StudentSerializer(student).data
+        except Student.DoesNotExist:
+            return None
+    
 # ISSUE CREATION SERIALIZER (For students to submit issues)
 class IssueCreateSerializer(serializers.ModelSerializer):
+    submitted_by = serializers.PrimaryKeyRelatedField(queryset=User.objects.all())
     class Meta:
         model = Issue
-        fields = ['category', 'description']
+        fields = '__all__'
 
 # NOTIFICATION SERIALIZER
 class NotificationSerializer(serializers.ModelSerializer):
