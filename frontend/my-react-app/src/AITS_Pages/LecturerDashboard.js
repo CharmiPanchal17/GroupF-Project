@@ -56,7 +56,13 @@ const LecturerDashboard = () => {
           </tbody>
         </table>
       </div>
-
+     
+      <div className="stats">
+        <p>ASSIGNED ISSUES: 15</p>
+        <p>RESOLVED ISSUES: 06</p>
+        <p>PENDING ISSUES: 09</p>
+        
+      </div>
 
     </div>
   );
