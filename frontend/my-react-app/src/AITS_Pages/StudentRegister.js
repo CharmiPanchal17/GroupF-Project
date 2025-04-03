@@ -1,7 +1,7 @@
 // StudentRegister.js (React Component)
 import React from 'react';
 import './StudentRegister.css';
-import { useNavigate } from 'react-router-dom';
+/*import { useNavigate } from 'react-router-dom';*/
 
 function StudentRegister() {
   return (
@@ -17,7 +17,7 @@ function StudentRegister() {
         <input type="password" name="password2" placeholder="Confirm Password" required />
         <button type="submit">Register</button>
         <span className="password">Already have an account? <a href="/login">Login</a></span>
-        <span className="password">Forgot <a href="#">password</a></span>
+        <span className="password">Forgot <button href="#">password</button></span>
       </form>
     </div>
   );
