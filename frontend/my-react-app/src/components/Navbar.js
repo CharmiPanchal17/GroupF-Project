@@ -6,7 +6,6 @@ import { Button } from './Button';
 import StudentDashboard from '../AITS_Pages/StudentDashboard';
 import AcademicIssuePage from '../AITS_Pages/issuepage';
 import NotificationPage from '../utils/notifications';
-import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 function Navbar() {
