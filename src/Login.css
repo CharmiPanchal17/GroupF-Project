@@ -1,24 +1,28 @@
-.login-container {
+.container {
     text-align: center;
     margin-top: 50px;
+    height: 500px;
 }
 
-.login-container h2 {
+.container h2 {
     font-size: 2rem;
     color: blue;
+    text-transform: uppercase;
+    text-decoration: underline;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
-.login-container input {
+.input-group {
     padding: 10px;
     margin: 10px 0;
-    border: 1px solid #ccc;
+    border: 1px solid #b3b0b0;
     border-radius: 4px;
-    width: 80%;
+    width: 100%;
     font-size: 1rem;
 }
 
-.login-container button{
-    padding: 10px 20px;
+.submit-button{
+    padding: 14px 20px;
     border: none;
     border-radius: 4px;
     background-color: aquamarine;
@@ -28,16 +32,16 @@
     transition: background-color 0.3s ease;
 }
 
-.login-container button:hover {
+.submit-button:hover {
     background-color: #0d1beb;
 }
 
-.login-container p {
+.container p {
     font-size: 1rem;
     color: #555;
 }
 
-.login-container a {
+.container-span {
     color: #78d8df;
     text-decoration: none;
 }
@@ -45,4 +49,9 @@
 .login-container a:hover{
     text-decoration: underline;
     color: #0d1beb;
+}
+
+.logo {
+    text-align: center;
+    margin: 24px 0 12px 0;
 }

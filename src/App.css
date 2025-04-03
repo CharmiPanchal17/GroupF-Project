@@ -14,7 +14,6 @@
 }
 
 .App-header {
-  background-color: #7ea8fa;
   min-height: 100vh;
   justify-content: center;
   font-size: calc(10px + 2vmin);
@@ -23,7 +22,7 @@
 }
 
 .App-link {
-  color: #61dafb;
+  color: #0bc9fd;
 }
 
 @keyframes App-logo-spin {

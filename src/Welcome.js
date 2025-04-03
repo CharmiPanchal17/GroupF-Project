@@ -17,10 +17,10 @@ const Welcome = () =>{
                 <a href="help">Help</a>
                 <div className="dropdown">
          
-                    <button className="dropbtn">Login</button>
+                    <button className="dropbtn">Register</button>
                     <div className="dropdown-content">    
-                    <a onClick={() => navigate("/login")}>As Student</a>
-                    <a onClick={() => navigate("/lecturer-login")}> As Lecturer</a>
+                    <a onClick={() => navigate("/studentRegister")}>As Student</a>
+                    <a onClick={() => navigate("/lecturerRegister")}> As Lecturer</a>
                     <a onClick={() => navigate("/admin-login")}>Admin</a>
               </div>
             </div>

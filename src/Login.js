@@ -1,19 +1,19 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "./SignupLogin.css"; // Corrected the import path
+import "./StudentRegister.css"; // Corrected the import path
 
-const Login = () => {
+function Login () {
     const navigate = useNavigate();
 
-    const handleLogin = (e) => {
-        e.preventDefault();
-        console.log("User successfully logged in!");
-    };
-
+    
     return (
         <div className="container">
             <h2>Login</h2>
-            <form onSubmit={handleLogin}>
+            <form action="action_page.php" method="post">
+                {/*<div className="logo">
+                    <img src="logo.jpg" alt="AITS logo" className="logo"></img>
+                </div>*/}
+                
                 <div className="input-group">
                     <input
                         type="email"
@@ -34,8 +34,8 @@ const Login = () => {
                 </form>
                  <p>
                 Don't have an account?{" "}
-                <span onClick={() => navigate("/signup")} style={{ color: "blue", cursor: "pointer" }}>
-                    Signup
+                <span onClick={() => navigate("/studentRegister")} style={{ color: "blue", cursor: "pointer" }}>
+                    Register
                 </span>
                 <span className="password">Forgot<a href="#">password</a>
                 </span>

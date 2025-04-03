@@ -15,6 +15,7 @@ const StudentDashboard = ({ user }) =>
         console.log(courseUnits);
 
         return (
+            <div className="dashboard-container">
             <div style={{ padding: "20px", textAlign: "left" }}>
                 <h1>Student Dashboard</h1>
                 <h2> Hi, {user?.username || " "}! </h2>
@@ -40,6 +41,7 @@ const StudentDashboard = ({ user }) =>
                   className="submit-issue-button"
                onClick={() => navigate("/complaint")}>Submit an issue
                     </button>
+            </div>
             </div>
         );
     };
