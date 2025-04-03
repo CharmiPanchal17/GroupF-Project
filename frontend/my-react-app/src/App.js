@@ -9,6 +9,7 @@ import LecturerDashboard from "./AITS_Pages/LecturerDashboard";
 import Registrardashboard from "./AITS_Pages/Registrardashboard";
 import { ToastContainer } from "react-toastify";
 import NotificationExample from "./utils/notifications";
+import StudentRegister from "./AITS_Pages/StudentRegister";
 
 
 function App() {
@@ -28,14 +29,6 @@ function App() {
       </Routes>
     </Router>
   );
-
-    return (
-      <div>
-        <h1>Notifications</h1>
-        <ToastContainer position="top-right" autoClose={3000}/>
-      
-      </div>
-    );
   };
 
 
