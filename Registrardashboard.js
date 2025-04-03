@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import issuepage from './issuepage'; 
 import "./Registrardashboard.css";// Fixing the case for component import
 
 // Initial issues with added 'dateSubmitted' field
