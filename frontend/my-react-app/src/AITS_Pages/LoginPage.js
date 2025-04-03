@@ -4,7 +4,7 @@ import './LoginPage.css';
 
 const LoginPage = ({ setUser }) => {
   const [credentials, setCredentials] = useState({ email: '', password: '' });
-  const [error, setError] = useState('');
+  const [error, /*setError*/] = useState('');
 
   // Handle input changes
   const handleChange = (e) => {
