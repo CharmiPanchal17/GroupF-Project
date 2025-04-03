@@ -1,62 +1,69 @@
-
-import './App.css';
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import Navbar from './components/Navbar';
-import { BrowserRouter as Router,Routes,Route} from 'react-router-dom';
-import StudentDashboard from './pages/studentDashboard';
-import Login from "./pages/loginpage";
-import AcademicIssuePage from './pages/issue';
-import Home from './pages/home';
+import React, { useContext, useEffect } from "react";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import AcademicIssuePage from "./AITS_Pages/issuepage";
+import StudentDashboard from "./AITS_Pages/StudentDashboard";
+import WelcomePage from "./AITS_Pages/WelcomePage";
+import LoginPage from "./AITS_Pages/LoginPage";
+import LecturerDashboard from "./AITS_Pages/LecturerDashboard";
+import Registrardashboard from "./AITS_Pages/Registrardashboard";
+import { ToastContainer } from "react-toastify";
+import { authContext } from "./context/AuthContext";
+import { Toaster } from "react-hot-toast";
 
 function App() {
-  return (
-    <>
-    <Router>
-      <Navbar/>
-      <Routes>
-        <Route path='/' exact component={Home}/>
-        <Route path='/fetchdata' component={FetchData}/> 
-      </Routes>
-      <Routes>
-        <Route path='login' component={Login}/>
-      </Routes>
-      <Routes>
-        <Route path='/StudentDashboard' component={StudentDashboard}/>
-      </Routes>
-      <Routes>
-        <Route path='/issues' component={AcademicIssuePage}/>
-      </Routes>
-
-    </Router>
-    </>
-        
-  );
-}
-
-function FetchData(){
-  const [data, setData] = useState([]);
-
   useEffect(() => {
-    axios.get('https://jsonplaceholder.typicode.com/posts')
-      .then(response => {
-        setData(response.data);
-      })
-      .catch(error => {
-        console.error('Error fetching data:', error);
-      });
+    document.title = "AITS";
   }, []);
 
+  const isAuthenticated = !!localStorage.getItem("token");
+  const { userLoginData } = useContext(authContext);
+
   return (
-    <div>
-      <h2>Fetched Data</h2>
-      <ul>
-        {data.slice(0, 5).map((item) => (
-          <li key={item.id}>{item.title}</li>
-        ))}
-      </ul>
-    </div>
+    <>
+      <Router>
+        <Routes>
+          {/* Public Routes (Accessible without a token) */}
+          {!isAuthenticated ? (
+            <>
+              <Route path="/" element={<WelcomePage />} />
+              <Route path="/login" element={<LoginPage />} />
+              <Route path="*" element={<Navigate to="/login" />} />
+            </>
+          ) : (
+            <>
+              {/* Protected Routes Based on Role */}
+              {userLoginData?.role === "student" && (
+                <>
+                  <Route path="/student" element={<StudentDashboard />} />
+                  <Route path="/student/academic-issues" element={<AcademicIssuePage />} />
+                  <Route path="*" element={<Navigate to="/student" />} />
+                </>
+              )}
+
+              {userLoginData?.role === "lecturer" && (
+                <>
+                  <Route path="/lecturer" element={<LecturerDashboard />} />
+                  <Route path="/lecturer/academic-issues" element={<AcademicIssuePage />} />
+                  <Route path="*" element={<Navigate to="/lecturer" />} />
+                </>
+              )}
+
+              {userLoginData?.role === "registrar" && (
+                <>
+                  <Route path="/registrar-dashboard" element={<Registrardashboard />} />
+                  <Route path="*" element={<Navigate to="/registrar-dashboard" />} />
+                </>
+              )}
+            </>
+          )}
+        </Routes>
+      </Router>
+
+      {/* Global Toast Notifications */}
+      <Toaster position="top-right" />
+      <ToastContainer position="top-right" autoClose={3000} />
+    </>
   );
-};
+}
 
 export default App;
