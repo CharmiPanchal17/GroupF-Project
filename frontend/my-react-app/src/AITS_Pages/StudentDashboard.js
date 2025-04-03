@@ -27,8 +27,6 @@ const StudentDashboard = ({ user = {} }) => {
     openModal()
   }
 
-  
-
   // const handleDelete = (id) => {
   //   DeleteIssue(id)
   // }
@@ -81,12 +79,7 @@ const StudentDashboard = ({ user = {} }) => {
                     Edit
                   </Link>
                   <br />
-                  {/* I realized that only a registrar can delete an issue */}
-                  {/* <Link
-                    onClick={() => handleDelete(course.id)}
-                  >
-                    Delete
-                  </Link> */}
+                
                 </td>
               </tr>
             ))}
