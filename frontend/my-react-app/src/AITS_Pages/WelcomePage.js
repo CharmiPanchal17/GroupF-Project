@@ -5,6 +5,7 @@ import Navbar from '../components/Navbar';
 import LecturerDashboard from './LecturerDashboard';
 import StudentDashboard from './StudentDashboard';
 import Registrardashboard from './Registrardashboard';
+import StudentRegister from './StudentRegister';
 
 const WelcomePage = () => {
   return (
@@ -24,7 +25,7 @@ const WelcomePage = () => {
           <p>Access your courses, grades, and resources.</p>
           <div className="welcome-page-links">
             <Link to="/StudentDashboard" className="welcome-page-link" onCliick={StudentDashboard}>Login</Link>
-            <Link to="/student-signup" className="welcome-page-link">Sign Up</Link>
+            <Link to="/StudentRegister" className="welcome-page-link"onClick={StudentRegister}>Sign Up</Link>
           </div>
         </section>
 
@@ -42,7 +43,6 @@ const WelcomePage = () => {
           <p>Administer student records and system settings.</p>
           <div className="welcome-page-links">
             <Link to="Registardashboard" className="welcome-page-link" onClick={Registrardashboard}>Login</Link>
-            <Link to="/registrar-signup" className="welcome-page-link">Sign Up</Link>
           </div>
         </section>
       </main>
