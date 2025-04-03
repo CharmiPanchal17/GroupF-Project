@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-1rpp0(gzcecjfa5)l%)mkll1icncafg0w^eem8)#2h83uct5&4
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'corsheaders',
     # Third-party apps
     'rest_framework_simplejwt',
     'rest_framework',
@@ -78,6 +79,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'AITS.wsgi.application'
 
+CORS_ALLOW_ALL_ORIGINS = True
 
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
