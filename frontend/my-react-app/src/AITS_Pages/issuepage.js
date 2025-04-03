@@ -138,8 +138,8 @@ const AcademicIssuePage = () => {
 
                 <button type="submit">Submit</button>
             </form>
-            {/* {successMessage && <p className="success-message">Issue submitted successfully!</p>}
-            {errorMessage && <p className="error-message">{errorMessage}</p>} */}
+             {/*successMessage && <p className="success-message">Issue submitted successfully!</p>*/}
+            {/*errorMessage && <p className="error-message">{errorMessage}</p>*/}
         </div>
     );
 };
