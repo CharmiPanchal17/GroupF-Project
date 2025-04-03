@@ -1,10 +1,22 @@
 import React, { useState } from "react";
 import "./AcademicIssuePage.css";
+import axios from 'axios';
+import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 const AcademicIssuePage = () => {
+    const navigate = useNavigate()
+    const token = localStorage.getItem('token');
     const [selectedCourse, setSelectedCourse] = useState("");
+    const [selectedDepartment, setSelectedDepartment] = useState("");
     const [selectedSchool, setSelectedSchool] = useState("");
-    const [successMessage, setSuccessMessage] = useState(false);
+    const [selectedYear, setSelectedYear] = useState("");
+    const [selectedSemester, setSelectedSemester] = useState("");
+    const [courseUnit, setCourseUnit] = useState("");
+    const [lecturerName, setLecturerName] = useState("");
+    const [issueDetails, setIssueDetails] = useState("");
+    // const [successMessage, setSuccessMessage] = useState(false);
+    // const [errorMessage, setErrorMessage] = useState(false);
 
     const courses = {
         SCIT: [
@@ -35,23 +47,44 @@ const AcademicIssuePage = () => {
     const years = [1, 2, 3, 4];
     const semesters = [1, 2];
 
-    const handleSubmit =(event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
-       };
-
+        // Data object to send to the backend
+        const issueData = {
+            school: selectedSchool,
+            department: selectedDepartment,
+            course: selectedCourse,
+            year: selectedYear,
+            semester: selectedSemester,
+            course_unit: courseUnit,
+            lecturer_name: lecturerName,
+            issue_details: issueDetails,
+        };
         try {
-            const response=("issues");
-            console.log("Issue submitted:", response.data);
+            const response = await axios.post(`${process.env.REACT_APP_API_URL}/issues/submit/`, issueData, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`,
+                },
+            });
+            if (response.status === 201) {
+                setSelectedSchool("");
+                setSelectedDepartment("");
+                setSelectedCourse("");
+                setSelectedYear("");
+                setSelectedSemester("");
+                setCourseUnit("");
+                setLecturerName("");
+                setIssueDetails("");
+                navigate('/student')
+                toast('Issue Submitted Successfully', {style: {backgroundColor: 'green', color: 'white'}})
+            }
+        } catch (error) {
+            console.error("Posting issue Error", error.response?.data || error.message);
+        }
+    };
 
-        setSuccessMessage(true);
-        setTimeout(() => setSuccessMessage(false), 3000);
-        }
-        catch (error) {
-            console.error("Error submitting issue:", error);
-            setSuccessMessage(false);
-        }
-    
-     return (
+    return (
         <div className="container">
             <h2>COCIS Academic Issue Report</h2>
             <form onSubmit={handleSubmit}>
@@ -63,7 +96,7 @@ const AcademicIssuePage = () => {
                 </select>
 
                 <label>Select Department:</label>
-                <select required>
+                <select onChange={(e) => setSelectedDepartment(e.target.value)} required>
                     <option value="">-- Select Department --</option>
                     {selectedSchool && departments[selectedSchool].map((dept) => (
                         <option key={dept.value} value={dept.value}>{dept.label}</option>
@@ -79,7 +112,7 @@ const AcademicIssuePage = () => {
                 </select>
 
                 <label>Year of Study:</label>
-                <select required>
+                <select onChange={(e) => setSelectedYear(e.target.value)} required>
                     <option value="">-- Select Year --</option>
                     {years.map((year) => (
                         <option key={year} value={year}>{year} Year ({selectedCourse})</option>
@@ -87,7 +120,7 @@ const AcademicIssuePage = () => {
                 </select>
 
                 <label>Select Semester:</label>
-                <select required>
+                <select onChange={(e) => setSelectedSemester(e.target.value)} required>
                     <option value="">-- Select Semester --</option>
                     {semesters.map((semester) => (
                         <option key={semester} value={semester}>Semester {semester}</option>
@@ -95,21 +128,20 @@ const AcademicIssuePage = () => {
                 </select>
 
                 <label>Course Unit:</label>
-                <textarea rows="1" required></textarea>
+                <textarea onChange={(e) => setCourseUnit(e.target.value)} rows="1" required></textarea>
 
                 <label>Lecturer's Name:</label>
-                <textarea rows="1" required></textarea>
+                <textarea onChange={(e) => setLecturerName(e.target.value)} rows="1" required></textarea>
 
                 <label>Issue Details:</label>
-                <textarea rows="3" required></textarea>
+                <textarea onChange={(e) => setIssueDetails(e.target.value)} rows="3" required></textarea>
 
                 <button type="submit">Submit</button>
             </form>
-            {successMessage && <p className="success-message">Issue submitted successfully!</p>}
-            
-            </div>
-        );
-    };
-
+            {/* {successMessage && <p className="success-message">Issue submitted successfully!</p>}
+            {errorMessage && <p className="error-message">{errorMessage}</p>} */}
+        </div>
+    );
+};
 
 export default AcademicIssuePage;
