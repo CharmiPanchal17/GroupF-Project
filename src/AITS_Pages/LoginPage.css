@@ -11,19 +11,20 @@
   
   /* Styling the login form */
   .login-form {
-    background: white;
+    background: #c7faf3;
     padding: 2rem;
     border-radius: 10px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 2);
     text-align: center;
     width: 350px;
+    height: 400px;
   }
   
   /* Login form heading */
-  .login-form h2 {
+  .login-form h1 {
     margin-bottom: 20px;
-    color: #333;
-    font-size: 24px;
+    color: #007bff;
+    font-size: 30px;
   }
   
   /* Styling input fields */
@@ -65,7 +66,8 @@
   /* Register link styling */
   .login-form p {
     margin-top: 15px;
-    font-size: 14px;
+    font-size: 1rem;
+    color: #555;
   }
   
   .login-form a {
@@ -76,5 +78,6 @@
   
   .login-form a:hover {
     text-decoration: underline;
+    color: #1929fd;
   }
   
