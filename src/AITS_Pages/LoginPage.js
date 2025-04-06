@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import authService from '../services/authService';
 import './LoginPage.css';
+import { useNavigate } from 'react-router-dom';
 
 const LoginPage = ({ setUser }) => {
   const [credentials, setCredentials] = useState({ email: '', password: '' });
   const [error, setError] = useState('');
+  const navigate = useNavigate();
 
   // Handle input changes
   const handleChange = (e) => {
@@ -24,7 +26,8 @@ const LoginPage = ({ setUser }) => {
   return (
     <div className="login-container">
       <div className="login-form">
-        <h2>Login</h2>
+      <img src='logo.jpg' alt='AITS-logo' className='dashboard-logo' />
+        <h1>Login</h1>
         {error && <p className="error-message">{error}</p>}
         <form onSubmit={handleLogin}>
           <input
@@ -43,7 +46,7 @@ const LoginPage = ({ setUser }) => {
             onChange={handleChange}
             required
           />
-          <button type="submit" >Login</button>
+          <button type="submit" className="submit" onClick={() => navigate("/StudentDashboard")}>Login</button>
         </form>
         <p>Don't have an account? <a href="/register">Register</a></p>
       </div>
