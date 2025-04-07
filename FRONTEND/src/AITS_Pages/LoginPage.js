@@ -15,9 +15,11 @@ const LoginPage = ({ setUser }) => {
   const handleLogin = async (e) => {
     e.preventDefault();
     const response = await authService.login(credentials)
-    const token = response.data.access
-    if (token) {
-      window.location.reload();
+    if (response?.data?.access) {
+      const token = response?.data?.access
+      if (token) {
+        window.location.reload();
+      }
     }
   };
 

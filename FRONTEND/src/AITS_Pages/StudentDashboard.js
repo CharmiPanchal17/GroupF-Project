@@ -47,6 +47,11 @@ const StudentDashboard = ({ user = {} }) => {
     setIsModalOpen(false);
   };
 
+  const logOut = () => {
+    localStorage.clear();
+    window.location.reload();
+};
+
 
   return (
     <div className="dashboard-container">
@@ -99,6 +104,10 @@ const StudentDashboard = ({ user = {} }) => {
       <button className="report-btn" onClick={() => navigate("/student/academic-issues")}>
         Report an Issue
       </button>
+
+     
+
+<button onClick={logOut}>Log out</button>
     </div>
   );
 };
