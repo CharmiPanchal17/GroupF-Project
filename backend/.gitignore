@@ -1,6 +1,5 @@
 my_env
 __pycache__/
-**/migrations/*.py
 **/migrations/__pycache__/
 local_settings.py
 db.sqlite3
