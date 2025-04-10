@@ -33,7 +33,7 @@ const WelcomePage = () => {
           <p>Manage courses, students, and academic tasks.</p>
           <div className="welcome-page-links">
             <Link to='/LecturerDashboard' className='welcome-page-link' onClick={LecturerDashboard}>Login </Link>
-            <Link to="/lecturer-signup" className="welcome-page-link">Sign Up</Link>
+
           </div>
         </section>
 
