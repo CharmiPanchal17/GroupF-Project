@@ -10,8 +10,15 @@ class CustomUserAdmin(UserAdmin):
         ('Personal info', {'fields': ('role', 'is_verified', 'verification_token')}),
         ('Permissions', {'fields': ('is_active', 'is_staff', 'is_superuser')}),
     )
+    add_fieldsets = (
+        (None, {
+            'classes': ('wide',),
+            'fields': ('email', 'password1', 'password2', 'is_active', 'is_staff')
+        }),
+    )
     search_fields = ('email',)
     ordering = ('email',)
+    readonly_fields = ('verification_token',)
 
 admin.site.register(User, CustomUserAdmin)
 admin.site.register(Student)

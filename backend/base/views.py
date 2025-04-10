@@ -94,16 +94,36 @@ def get_profile(request):
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
 def submit_issue(request):
+    data = request.data.copy()
+    data['submitted_by'] = request.user.id
     """Allow students to submit issues"""
     if request.user.role != 'student':
         return Response({"error": "Only students can submit issues."}, status=status.HTTP_403_FORBIDDEN)
     
-    serializer = IssueCreateSerializer(data=request.data)
+    serializer = IssueCreateSerializer(data=data)
     if serializer.is_valid():
-        issue = serializer.save(submitted_by=request.user.student)
+        issue = serializer.save()
         return Response(IssueSerializer(issue).data, status=status.HTTP_201_CREATED)
     
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def issue_list(request):
+    print(request.user.role)
+    # at the moment for the lecturer am fectching all issues but after you set up lecturers with departments and courses well
+    # you can further improve this query to filter depending on department or course
+    if request.user.role == "lecturer":
+        issues = Issue.objects.all()
+    else:
+        issues = Issue.objects.filter(submitted_by=request.user.id)
+    try:
+        serializerData = IssueSerializer(issues, many=True).data
+        return Response(serializerData, status=status.HTTP_200_OK)
+    except:
+        return Response({"error": "Error while fetching issues"}, status=status.HTTP_404_NOT_FOUND)
+
+
 
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
@@ -126,7 +146,7 @@ def assign_issue(request, issue_id):
     except Lecturer.DoesNotExist:
         return Response({"error": "Lecturer not found."}, status=status.HTTP_400_BAD_REQUEST)
 
-@api_view(['POST'])
+@api_view(['PATCH'])
 @permission_classes([IsAuthenticated])
 def resolve_issue(request, issue_id):
     """Allow assigned lecturers to resolve issues"""
@@ -135,7 +155,7 @@ def resolve_issue(request, issue_id):
     
     try:
         issue = Issue.objects.get(id=issue_id)
-        if issue.assigned_to != request.user.lecturer:
+        if issue.assigned_to != request.user:
             return Response({"error": "You can only resolve issues assigned to you."}, status=status.HTTP_403_FORBIDDEN)
         
         issue.status = 'resolved'
@@ -145,6 +165,28 @@ def resolve_issue(request, issue_id):
         return Response(IssueSerializer(issue).data, status=status.HTTP_200_OK)
     except Issue.DoesNotExist:
         return Response({"error": "Issue not found."}, status=status.HTTP_404_NOT_FOUND)
+    
+
+@api_view(['PATCH'])
+@permission_classes([IsAuthenticated])
+def update_issue(request, pk):
+    print(request.data)
+    print(pk)
+    try:
+        issue = Issue.objects.get(id=pk)
+        print(issue)
+    except Issue.DoesNotExist:
+        return Response({"error": "Issue not found or not submitted by you."}, status=status.HTTP_404_NOT_FOUND)
+
+    serializer = IssueSerializer(issue, data=request.data, partial=True)
+    print(serializer.initial_data)
+    
+    if serializer.is_valid():
+        serializer.save()
+        print(serializer.data)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['DELETE'])
 @permission_classes([IsAuthenticated])
@@ -159,3 +201,10 @@ def delete_issue(request, issue_id):
         return Response({"message": "Issue deleted successfully."}, status=status.HTTP_204_NO_CONTENT)
     except Issue.DoesNotExist:
         return Response({"error": "Issue not found."}, status=status.HTTP_404_NOT_FOUND)
+
+@api_view(['GET']) 
+@permission_classes([IsAuthenticated])
+def get_user (request, id):
+    user = User.objects.get(id=id)
+    user_data = UserSerializer(user).data
+    return Response(user_data, status=status.HTTP_200_OK)
