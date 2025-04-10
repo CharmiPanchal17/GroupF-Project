@@ -5,8 +5,6 @@ import Navbar from '../components/Navbar';
 import LecturerDashboard from './LecturerDashboard';
 import StudentDashboard from './StudentDashboard';
 import Registrardashboard from './Registrardashboard';
-import StudentRegister from './StudentRegister';
-import LecturerRegister from './LecturerRegister';
 
 const WelcomePage = () => {
   return (
@@ -35,7 +33,7 @@ const WelcomePage = () => {
           <p>Manage courses, students, and academic tasks.</p>
           <div className="welcome-page-links">
             <Link to='/LecturerDashboard' className='welcome-page-link' onClick={LecturerDashboard}>Login </Link>
-            <Link to="/LecturerRegister" className="welcome-page-link"on onClick={LecturerRegister}>Sign Up</Link>
+
           </div>
         </section>
 
