@@ -33,7 +33,7 @@ const LoginPage = ({ setUser }) => {
           <input
             type="email"
             name="email"
-            placeholder="Email"
+            placeholder="📧 Webmail"
             value={credentials.email}
             onChange={handleChange}
             required
@@ -41,7 +41,7 @@ const LoginPage = ({ setUser }) => {
           <input
             type="password"
             name="password"
-            placeholder="Password"
+            placeholder="🔒 Password"
             value={credentials.password}
             onChange={handleChange}
             required
