@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './WelcomePage.css';
-import Navbar from '../components/Navbar';
+import VerticalNavbar from '../components/VerticalNavbar';
 import LecturerDashboard from './LecturerDashboard';
 import StudentDashboard from './StudentDashboard';
 import Registrardashboard from './Registrardashboard';
