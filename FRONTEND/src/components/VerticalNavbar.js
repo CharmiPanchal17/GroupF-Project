@@ -1,7 +1,7 @@
 //this is the navigation bar for the website
 import React, { useState } from 'react';
 import { Link, useNavigate } from "react-router-dom";
-import './Navbar.css';
+import './VerticalNavbar.css';
 import { Button } from './Button';
 import AcademicIssuePage from '../AITS_Pages/issuepage';
 import NotificationPage from '../utils/notifications';
