@@ -15,7 +15,7 @@ function Editpage({ data, onClose}) {
         course_unit: courseUnit,
         lecturer_name: lecturerName,
         issue_details: issueDetails,
-      // Add other values here that you want to send to the database
+      // 
     };
 
     // Assuming UpdateIssue is a function that submits the data

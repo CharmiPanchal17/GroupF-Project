@@ -111,8 +111,6 @@ def submit_issue(request):
 @permission_classes([IsAuthenticated])
 def issue_list(request):
     print(request.user.role)
-    # at the moment for the lecturer am fectching all issues but after you set up lecturers with departments and courses well
-    # you can further improve this query to filter depending on department or course
     if request.user.role == "lecturer":
         issues = Issue.objects.all()
     else:

@@ -47,7 +47,7 @@ const LecturerDashboard = () => {
                     >
                       <option value="resolved">Resolved</option>
                       <option value="pending">Pending</option>
-                      {/* you didnt put an alternative for in progress and that is why this is commented out.  */}
+                      {/*  */}
                       {/* <option value="in_progress">In Progress</option> */}
                       /</select>
                   </td>
@@ -62,8 +62,7 @@ const LecturerDashboard = () => {
         <p>ASSIGNED ISSUES: 15</p>
         <p>RESOLVED ISSUES: 06</p>
         <p>PENDING ISSUES: 09</p>
-        {/* Couldn't include these because the field of category is not being captured from the front end but 
-        if you include it then you can easily get this info as well. */}
+        {/* */}
         {/* <p>MISSING MARKS: 11</p>
         <p>REMARKING: 02</p>
         <p>WRONG MARKS: 02</p> */}
