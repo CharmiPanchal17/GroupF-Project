@@ -16,7 +16,7 @@ const WelcomePage = () => {
         <p>How can we help you?</p>
       </header>
 
-      <Navbar /> {/* Navbar moved outside main */}
+      <VerticalNavbar/> {/* Navbar moved outside main */}
 
       <main className="welcome-page-main">
         <section className="welcome-page-section">
