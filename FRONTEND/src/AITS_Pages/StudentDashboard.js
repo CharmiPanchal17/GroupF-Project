@@ -86,7 +86,7 @@ const StudentDashboard = ({ user = {} }) => {
                     Edit
                   </Link>
                   <br />
-                  {/* I realized that only a registrar can delete an issue */}
+                  {/* only a registrar can delete an issue */}
                   {/* <Link
                     onClick={() => handleDelete(course.id)}
                   >

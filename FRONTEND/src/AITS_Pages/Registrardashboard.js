@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import "./Registrardashboard.css";// Fixing the case for component import
+import "./Registrardashboard.css";
 
-// Initial issues with added 'dateSubmitted' field
+
 const initialIssues = [
   { id: 1, studentName: 'John Doe', course: 'BSCS', courseUnit: 'DSA', lecturerName: 'Kizito', status: 'Pending', dateSubmitted: '2025-03-15' },
   { id: 2, studentName: 'Jane Smith', course: 'BSSE', courseUnit: 'SDP', lecturerName: 'Daniel', status: 'Resolved', dateSubmitted: '2025-03-16' },
