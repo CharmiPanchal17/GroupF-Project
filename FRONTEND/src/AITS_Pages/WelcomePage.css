@@ -26,4 +26,10 @@
     font-size: 1.1rem;
     color:#333;
   }
+    .welcome-page-main {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    padding: 20px 20px;
+  }
 
