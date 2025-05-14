@@ -33,3 +33,12 @@
     padding: 20px 20px;
   }
 
+   .welcome-page-section {
+    width: 300px;
+    padding: 30px;
+    margin: 10px;
+    background-color: rgb(248, 249, 250);
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
