@@ -6,3 +6,10 @@
   background: linear-gradient(to right,#3dc0ef,#7f50ff);
   color: #333;
 }
+  .welcome-page-header {
+    text-align: center;
+    padding: 50px 20px;
+    background-color:aliceblue(121, 215, 253, 0.8);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
