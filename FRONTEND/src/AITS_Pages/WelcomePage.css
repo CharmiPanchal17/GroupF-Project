@@ -13,3 +13,8 @@
     backdrop-filter: blur(10px);
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   }
+    .welcome-page-logo {
+    width: 150px;
+    margin-bottom: 20px;
+  }
+
