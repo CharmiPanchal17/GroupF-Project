@@ -23,7 +23,7 @@ AITS is a web-based platform for Makerere University that streamlines the proces
 | -------------- | ------------------------ |
 | Backend        | Django REST Framework    |
 | Frontend       | React                    |
-| Styling        | CSS|
+| Styling        | CSS                      |
 | Database       | SQLite                   |
 | Authentication | Django Auth, JWT (planned)|
 | Deployment     | Render, Netlify    |
@@ -100,6 +100,13 @@ This project is for educational purposes at Makerere University.
 ## 👥 Authors
 
 - Group F
+KOBUMANZI PRISCILLA LINAH 
+BYAMUGISHA ANTHONY  
+KICONCO JULIA  
+IGA AALIYAH 
+PANCHAL CHARMI
+AINAMAANI GRACIOUS
+
 
 ---
 
