@@ -70,3 +70,15 @@
     text-decoration: none;
     transition: background-color 0.3s ease;
   }
+   .welcome-page-link:hover {
+    background-color: #0056b3;
+  }
+
+  .welcome-page-footer {
+    text-align: center;
+    padding: 10px;
+    background-color: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+    margin-top: auto;
+  }
