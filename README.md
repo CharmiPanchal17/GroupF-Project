@@ -35,7 +35,7 @@ AITS is a web-based platform for Makerere University that streamlines the proces
 ### 1. Clone the Repository
 
 ```sh
-(https://github.com/CharmiPanchal17/GroupF-Project.git)
+git clone (https://github.com/CharmiPanchal17/GroupF-Project.git)
 cd aits-project
 ```
 
