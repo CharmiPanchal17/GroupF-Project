@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './WelcomePage.css';
-import VerticalNavbar from '../components/VerticalNavbar';
+import Navbar from '../components/Navbar';
 import LecturerDashboard from './LecturerDashboard';
 import StudentDashboard from './StudentDashboard';
 import Registrardashboard from './Registrardashboard';
@@ -11,12 +11,13 @@ const WelcomePage = () => {
     <div className="welcome-page-container">
       <header className="welcome-page-header">
         <img src="/images/Aitslogo.png" alt="AITS Logo" className="welcome-page-logo"/>
-        <h2>WELCOME TO AITS (Acacemic Issue Tracking System)</h2>
+        <h1>WELCOME TO AITS</h1>
+        <h2>Academic Issue Tracking System</h2>
         <p>Your comprehensive academic management system.</p>
         <p>How can we help you?</p>
       </header>
 
-      <VerticalNavbar/> {/* Navbar moved outside main */}
+      <Navbar/> 
 
       <main className="welcome-page-main">
         <section className="welcome-page-section">
