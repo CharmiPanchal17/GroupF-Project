@@ -1,0 +1,232 @@
+.navbar {
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 220px;
+    background-color: #43439e;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.2rem;
+    padding: 0 24px;
+    position: fixed;
+    z-index: 1000;
+  }
+  
+  .navbar-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 700px;
+    width: 100%;
+  }
+  
+  .navbar-logo {
+    color: #fff;
+    font-size: 1.5rem;
+    text-decoration: none;
+    margin-bottom: 40px;
+    
+  }
+
+  .welcome-page-logo{
+    width: 50px;
+    margin-bottom: 20px;
+  }
+  
+  .fa-typo3 {
+    margin-left: 0.5rem;
+    font-size: 1.8rem;
+  }
+  
+  .nav-menu {
+    display: flex;
+    grid-template-columns: repeat(4, auto);
+    grid-gap: 10px;
+    list-style: none;
+    text-align: center;
+    width: 60vw;
+    justify-content: end;
+    margin-right: 2rem;
+  }
+  
+  .nav-item {
+    height: 80px;
+    width: 100%;
+    text-align: left;
+    margin: 10px 0;
+    flex-direction: column;
+  }
+  .navbar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  
+  
+  .nav-links {
+    color: #fff;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    height: 100%;
+    flex-direction: column;
+    margin-bottom: 25px;
+  }
+  
+  .nav-links:hover {
+    transition: all 0.2s ease-out;
+    color: #fff;
+    text-decoration: none;
+    background-color: #63b3fd;
+    border-radius: 8px;
+    padding: 1rem 1.5rem;
+    height: auto;
+  
+  }
+  
+  .fa-bars {
+    color: #fff;
+  }
+  
+  .nav-links-mobile {
+    display: none;
+  }
+  
+  .menu-icon {
+    display: none;
+    font-size: 1.8rem;
+    cursor: pointer;
+    color: #fff;
+  }
+
+  @media screen and (max-width: 960px) {
+    .menu-icon{
+      display: block;
+    }
+  
+    .navbar-container {
+      height: 80px;
+      width: 100%;
+    }
+  
+    .nav-menu {
+      display: none;
+    }
+  
+    .menu-icon {
+      display: block;
+    }
+  
+    .nav-links-mobile {
+      display: block;
+    }
+  
+    .nav-links-mobile:hover {
+      background-color: #fff;
+      color: #010107;
+      border-radius: 0;
+    }
+  
+    .nav-item {
+      display: none;
+    }
+    
+  }
+  
+  @media screen and (max-width: 960px) {
+    .nav-links {
+      position: fixed;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: flex-start;
+      top: 90px;
+      
+    }
+  
+    .nav-menu {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      position: absolute;
+      top: 80px;
+      opacity: 1;
+      transition: all 0.5s ease;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+  
+    .nav-menu.active {
+      background: #0c0c0c;
+      left: 0;
+      opacity: 1;
+      transition: all 0.5s ease;
+      z-index: 1;
+    }
+  
+    .nav-links {
+      text-align: center;
+      padding: 10px 0;
+      width: 100%;
+      display: block;
+      transition: background 0.3s ease;
+    }
+  
+    .nav-links:hover {
+      background-color: #fff;
+      color: #010107;
+      border-radius: 0;
+    }
+  
+    .navbar-logo {
+      position: absolute;
+      top: 0;
+      left: 0;
+      transform: translate(25%, 50%);
+    }
+  
+    .menu-icon {
+      display: block;
+      position: absolute;
+      top: 0;
+      right: 0;
+      transform: translate(-100%, 60%);
+      font-size: 1.8rem;
+      cursor: pointer;
+    }
+  
+    .fa-times {
+      color: #fff;
+      font-size: 2rem;
+    }
+  
+    .nav-links-mobile {
+      display: block;
+      text-align: center;
+      margin: 2rem auto;
+      border-radius: 4px;
+      width: 80%;
+      text-decoration: none;
+      font-size: 1.5rem;
+      background-color: transparent;
+      color: #fff;
+      padding: 14px 20px;
+      border: 1px solid #fff;
+      transition: all 0.3s ease-out;
+    }
+  
+    .nav-links-mobile:hover {
+      background: #fff;
+      color: #242424;
+      transition: 250ms;
+    }
+  }
+
+  .navbar-container img {
+    margin-top: 10px;
+
+  }
