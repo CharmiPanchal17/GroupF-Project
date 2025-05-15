@@ -51,3 +51,9 @@
   .login-form button:hover {
     background: #6a11cb;
   }
+/* Error message styling */
+  .error-message {
+    color: red;
+    font-size: 14px;
+    margin-bottom: 10px;
+  }
