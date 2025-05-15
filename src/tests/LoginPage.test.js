@@ -1,42 +1,80 @@
+import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
-import LoginPage from '../AITS/LoginPage'; // Ensure correct import path
+import LoginPage from '../AITS_Pages/LoginPage';
 import authService from '../services/authService';
-import { MemoryRouter } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 
-// Mock the authService
-jest.mock('../services/authService');
+// Mock authService
+jest.mock('../services/authService', () => ({
+  login: jest.fn(),
+}));
 
-describe('LoginPage', () => {
-  test('submits login form and calls authService.login', async () => {
-    const fakeToken = { access: 'fake-token' };
-    authService.login.mockResolvedValue({ data: fakeToken });
+// Mock navigate
+const mockedNavigate = jest.fn();
+jest.mock('react-router-dom', () => ({
+  ...jest.requireActual('react-router-dom'),
+  useNavigate: () => mockedNavigate,
+}));
 
-    render(
-      <MemoryRouter>
-        <LoginPage />
-      </MemoryRouter>
-    );
+describe('LoginPage Component', () => {
+  beforeEach(() => {
+    // Clear previous mocks before each test
+    authService.login.mockClear();
+    mockedNavigate.mockClear();
+  });
 
-    // Fill in the form fields
+  test('renders login form', () => {
+    render(<LoginPage setUser={() => {}} />, { wrapper: BrowserRouter });
+
+    expect(screen.getByPlaceholderText('📧 Webmail')).toBeInTheDocument();
+    expect(screen.getByPlaceholderText('🔒 Password')).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /login/i })).toBeInTheDocument();
+  });
+
+  test('allows input and calls login on submit', async () => {
+    const mockToken = { data: { access: 'testtoken' } };
+    authService.login.mockResolvedValueOnce(mockToken);
+
+    render(<LoginPage setUser={() => {}} />, { wrapper: BrowserRouter });
+
     fireEvent.change(screen.getByPlaceholderText('📧 Webmail'), {
-      target: { value: 'test@example.com' },
+      target: { value: 'user@example.com', name: 'email' },
     });
+
     fireEvent.change(screen.getByPlaceholderText('🔒 Password'), {
-      target: { value: 'password123' },
+      target: { value: 'password123', name: 'password' },
     });
 
-    // Find the form and submit it
-    const form = screen.getByRole('form');
-    fireEvent.submit(form);
+    const loginButton = screen.getByRole('button', { name: /login/i });
 
-    // Expect authService.login to be called
-    expect(authService.login).toHaveBeenCalledTimes(1);
+    fireEvent.click(loginButton);
+
     expect(authService.login).toHaveBeenCalledWith({
-      email: 'test@example.com',
+      email: 'user@example.com',
       password: 'password123',
     });
+  });
 
-    // Expect to navigate (or reload the page as specified)
-    expect(window.location.reload).toHaveBeenCalled();
+  test('navigates to dashboard on login', async () => {
+    const mockToken = { data: { access: 'testtoken' } };
+    authService.login.mockResolvedValueOnce(mockToken);
+
+    render(<LoginPage setUser={() => {}} />, { wrapper: BrowserRouter });
+
+    fireEvent.change(screen.getByPlaceholderText('📧 Webmail'), {
+      target: { value: 'user@example.com', name: 'email' },
+    });
+
+    fireEvent.change(screen.getByPlaceholderText('🔒 Password'), {
+      target: { value: 'password123', name: 'password' },
+    });
+
+    fireEvent.click(screen.getByRole('button', { name: /login/i }));
+
+    // Wait for mocked login
+    await screen.findByRole('button'); // Forces wait
+
+    expect(authService.login).toHaveBeenCalledTimes(1);
+    expect(mockedNavigate).toHaveBeenCalledWith('/StudentDashboard');
   });
 });
