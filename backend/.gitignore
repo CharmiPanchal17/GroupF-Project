@@ -1,0 +1,13 @@
+my_env
+__pycache__/
+**/migrations/__pycache__/
+local_settings.py
+backend/db.sqlite3
+db.sqlite3-journal
+media
+backend/AITS/__pycache__
+backend/base/__pycache__
+
+# Distribution / packaging
+.Python
+build/
