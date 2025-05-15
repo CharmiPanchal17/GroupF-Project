@@ -2,6 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import './WelcomePage.css';
 import Navbar from '../components/Navbar';
+import RegisterPage from './RegisterPage';
+import LecRegisterPage from './LecRegisterPage';
 import LecturerDashboard from './LecturerDashboard';
 import StudentDashboard from './StudentDashboard';
 import Registrardashboard from './Registrardashboard';
@@ -15,8 +17,7 @@ const WelcomePage = () => {
         <p>Your comprehensive academic management system.</p>
         <p>How can we help you?</p>
       </header>
-
-      <Navbar /> {/* Navbar moved outside main */}
+      <Navbar />
 
       <main className="welcome-page-main">
         <section className="welcome-page-section">
@@ -24,7 +25,7 @@ const WelcomePage = () => {
           <p>Access your courses, grades, and resources.</p>
           <div className="welcome-page-links">
             <Link to="/login" className="welcome-page-link" onClick={StudentDashboard}>Login</Link>
-            <Link to="/login" className="welcome-page-link">Sign Up</Link>
+            <Link to="/register" className="welcome-page-link">Register</Link>
           </div>
         </section>
 
@@ -32,8 +33,9 @@ const WelcomePage = () => {
           <h2>Lecturers</h2>
           <p>Manage courses, students, and academic tasks.</p>
           <div className="welcome-page-links">
+            <Link to="/login" className="welcome-page-link" onClick={LecturerDashboard}>Login</Link>
             <Link to='/LecturerDashboard' className='welcome-page-link' onClick={LecturerDashboard}>Login </Link>
-            <Link to="/lecturer-signup" className="welcome-page-link">Sign Up</Link>
+            <Link to="/LecRegisterPage" className="welcome-page-link">Register</Link>
           </div>
         </section>
 
@@ -42,7 +44,7 @@ const WelcomePage = () => {
           <p>Administer student records and system settings.</p>
           <div className="welcome-page-links">
             <Link to="Registardashboard" className="welcome-page-link" onClick={Registrardashboard}>Login</Link>
-            <Link to="/registrar-signup" className="welcome-page-link">Sign Up</Link>
+            <Link to="/registrar-signup" className="welcome-page-link">Register</Link>
           </div>
         </section>
       </main>

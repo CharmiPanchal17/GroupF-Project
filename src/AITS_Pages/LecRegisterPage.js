@@ -4,9 +4,11 @@ import './RegisterPage.css';
 import { useNavigate } from 'react-router-dom';
 
 function LecRegisterPage() {
+  const navigate = useNavigate()
+  
   return (
     <div className="container">
-      <h1>Lecturer Register</h1>
+      <h1>🧑‍🏫 Lecturer Register</h1>
       <form method="post" action="#">
         <input type="text" name="username" placeholder="Username" required />
         <input type="text" name="fullname" placeholder="FullName" required />

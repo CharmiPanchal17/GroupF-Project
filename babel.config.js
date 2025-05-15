@@ -1,6 +1,4 @@
+console.log("Babel configuration file loaded.");
 module.exports = {
-    presets: [
-      "@babel/preset-env", // Transforms modern JavaScript (ES6+)
-      "@babel/preset-react", // Transforms JSX for React
-    ],
-  };
+  presets: ["@babel/preset-env", "@babel/preset-react"],
+};

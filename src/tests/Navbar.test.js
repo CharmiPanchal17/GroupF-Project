@@ -1,16 +1,20 @@
 import { render, screen, fireEvent } from '@testing-library/react';
-import Navbar from '../components/Navbar'; // adjust if needed
-import { Link } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
+import Navbar from '../components/Navbar'; // Adjust the path if needed
 
-test('calls onClick when link is clicked', () => {
+test('calls onClick when a link in the Navbar is clicked', () => {
   const handleClick = jest.fn();
 
   render(
-    <Link onClick={handleClick} buttonStyle="btn--primary" buttonSize="btn--medium">
-      Click Me
-    </Link>
+    <BrowserRouter>
+      <Navbar />
+    </BrowserRouter>
   );
 
-  fireEvent.click(screen.getByText(/click me/i));
+  // Simulate clicking a link in the Navbar
+  const linkElement = screen.getByText(/home/i); // Replace "home" with the actual text of a link in your Navbar
+  fireEvent.click(linkElement);
+
+  // Assert that the click handler was called
   expect(handleClick).toHaveBeenCalledTimes(1);
 });

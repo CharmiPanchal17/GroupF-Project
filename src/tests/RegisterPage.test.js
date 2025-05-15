@@ -8,8 +8,8 @@ jest.mock('../services/authService');
 
 describe('RegisterPage', () => {
   test('submits registration form and calls authService.register', async () => {
-    const fakeToken = { access: 'fake-token' };
-    authService.register.mockResolvedValue({ data: fakeToken });
+    const fakeResponse = { access: 'fake-token' };
+    authService.register.mockResolvedValue({ data: fakeResponse });
 
     render(
       <MemoryRouter>
@@ -18,21 +18,21 @@ describe('RegisterPage', () => {
     );
 
     // Fill in the form fields
-    fireEvent.change(screen.getAllByPlaceholderText('👤 Username'), {
-        target: { value:  'test2example.com' },
-    })
+    fireEvent.change(screen.getByPlaceholderText('👤 Username'), {
+      target: { value: 'testuser' },
+    });
 
-    fireEvent.change(screen.getAllByPlaceholderText('👥 FullName'), {
-        target: { value:  'test2example.com' },
-    })
+    fireEvent.change(screen.getByPlaceholderText('👥 FullName'), {
+      target: { value: 'Test User' },
+    });
 
-    fireEvent.change(screen.getAllByPlaceholderText('#️⃣ Student Number'), {
-        target: { value:  'test2example.com' },
-    })
+    fireEvent.change(screen.getByPlaceholderText('#️⃣ Student Number'), {
+      target: { value: '12345678' },
+    });
 
-    fireEvent.change(screen.getAllByPlaceholderText('#️⃣ Registration Number'), {
-        target: { value:  'test2example.com' },
-    })
+    fireEvent.change(screen.getByPlaceholderText('#️⃣ Registration Number'), {
+      target: { value: 'REG12345' },
+    });
 
     fireEvent.change(screen.getByPlaceholderText('📧 Webmail'), {
       target: { value: 'test@example.com' },
@@ -46,14 +46,18 @@ describe('RegisterPage', () => {
     const form = screen.getByRole('form');
     fireEvent.submit(form);
 
-    // Expect authService.login to be called
+    // Assert that authService.register was called with the correct data
     expect(authService.register).toHaveBeenCalledTimes(1);
     expect(authService.register).toHaveBeenCalledWith({
+      username: 'testuser',
+      fullName: 'Test User',
+      studentNumber: '12345678',
+      registrationNumber: 'REG12345',
       email: 'test@example.com',
       password: 'password123',
     });
 
-    // Expect to navigate (or reload the page as specified)
+    // Assert that the page reloads or navigates
     expect(window.location.reload).toHaveBeenCalled();
   });
 });

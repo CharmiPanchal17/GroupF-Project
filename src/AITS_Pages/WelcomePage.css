@@ -3,8 +3,8 @@
     flex-direction: column;
     min-height: 100vh;
     font-family: 'Arial', sans-serif;
-    background: linear-gradient(to right,#3dc0ef,#7f50ff);
     color: #333;
+    width: auto;
   }
 
   .welcome-page-header {
@@ -17,7 +17,7 @@
 
   .welcome-page-logo {
     width: 150px;
-    margin-bottom: 20px;
+    height: 100px;
   }
 
   .welcome-page-header h1 {
@@ -35,6 +35,7 @@
     justify-content: center;
     flex-wrap: wrap;
     padding: 20px 20px;
+    
   }
 
   .welcome-page-section {
@@ -43,7 +44,7 @@
     margin: 10px;
     background-color: white;
     border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, );
     text-align: center;
   }
 
@@ -79,6 +80,7 @@
 
   .welcome-page-link:hover {
     background-color: #0056b3;
+    color: white;
   }
 
   .welcome-page-footer {
