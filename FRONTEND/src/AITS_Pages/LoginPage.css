@@ -26,7 +26,7 @@
   }
 
   
-  /* Styling input fields */
+  /*Input field styles*/
   .login-form input {
     width: 100%;
     padding: 10px;
@@ -63,6 +63,7 @@
     margin-top: 15px;
     font-size: 14px;
   }
+  
 .login-form a {
     color: #2575fc;
     text-decoration: none;
