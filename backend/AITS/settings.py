@@ -44,8 +44,7 @@ INSTALLED_APPS = [
     'rest_framework',
     #apps
     'base',
-    
-    
+    'django_extensions',  
 ]
 
 MIDDLEWARE = [
@@ -57,12 +56,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
-]
-
-CORS_ALLOWED_ORIGINS = [
-    'http://localhost:3000',
-    
 ]
 
 ROOT_URLCONF = 'AITS.urls'
@@ -87,19 +80,20 @@ WSGI_APPLICATION = 'AITS.wsgi.application'
 
 CORS_ALLOW_ALL_ORIGINS = True
 
+
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
-'''DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'Aits db',
-        'USER' : 'postgres',
-        'PASSWORD': '1234',
-        'HOST': 'localhost',
-        'PORT':'5432',
-    }
-}'''
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': 'Aits db',
+#         'USER' : 'postgres',
+#         'PASSWORD': '1234',
+#         'HOST': 'localhost',
+#         'PORT':'5432',
+#     }
+# }
 
 DATABASES = {
     'default': {
@@ -107,7 +101,6 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
 
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(days=1),
@@ -162,6 +155,8 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
@@ -170,10 +165,10 @@ AUTH_USER_MODEL = 'base.User'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
-         'rest_framework.authentication.SessionAuthentication',
-    ),
+  'DEFAULT_AUTHENTICATION_CLASSES': [
+    'rest_framework_simplejwt.authentication.JWTAuthentication',
+    'rest_framework.authentication.SessionAuthentication',
+  ],
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.IsAuthenticated',
     ],
