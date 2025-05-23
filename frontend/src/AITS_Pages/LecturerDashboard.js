@@ -20,6 +20,11 @@ const LecturerDashboard = () => {
     FetchIssues(setIssues)
   }, [])
 
+  const logOut = () => {
+    localStorage.clear();
+    window.location.reload();
+};
+
   return (
     <div className="dashboard-container">
       <h2 className="title">ASSIGNED ISSUES</h2>
@@ -69,6 +74,9 @@ const LecturerDashboard = () => {
         <p>WRONG MARKS: 02</p> */}
       </div>
 
+    
+
+<button onClick={logOut}>Log out</button>
     </div>
   );
 };
