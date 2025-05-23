@@ -42,3 +42,7 @@ DATABASES = {
         conn_max_age=600,
     )
 }
+
+STATIC_URL = 'static/'
+
+STATIC_ROOT = BASE_DIR / 'staticfiles'
