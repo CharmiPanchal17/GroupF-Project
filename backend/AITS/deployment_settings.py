@@ -23,9 +23,9 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-# COS_ALLOWED_ORIGINS = [
-#     'https://localhost:3000',
-# ]
+COS_ALLOWED_ORIGINS = [
+     'https://groupf-project-aits-frontend.onrender.com',
+ ]
 
 STORAGES = {
     "default":{

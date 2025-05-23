@@ -11,6 +11,7 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'config.settings')
+settings_module = 'AITS.deployment_settings' if 'RENDER_EXTERNAL_HOSTNAME' in os.environ else 'AITS.settings'
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'AITS.settings')
 
 application = get_wsgi_application()
