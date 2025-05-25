@@ -24,8 +24,8 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 COS_ALLOWED_ORIGINS = [
-     'https://groupf-project-aits-frontend.onrender.com',
- ]
+    "https://groupf-project-1.onrender.com",
+]
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
