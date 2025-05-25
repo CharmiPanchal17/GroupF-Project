@@ -85,7 +85,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'AITS.wsgi.application'
 
-#CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_ALL_ORIGINS = True
 
 COS_ALLOWED_ORIGINS = [
     "https://groupf-project-1.onrender.com"
@@ -105,12 +105,13 @@ COS_ALLOWED_ORIGINS = [
 #     }
 # }
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
+#DATABASES = {
+#    'default': {
+#        'ENGINE': 'django.db.backends.sqlite3',
+#        'NAME': BASE_DIR / 'db.sqlite3',
+#    }
+#}
+
 
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(days=1),
