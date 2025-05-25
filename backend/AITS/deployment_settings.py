@@ -23,6 +23,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
 COS_ALLOWED_ORIGINS = [
     "https://groupf-project-1.onrender.com",
 ]
@@ -47,3 +48,4 @@ DATABASES = {
     )
 }
 
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
