@@ -1,4 +1,5 @@
-/*centering the page*/
+/* Centering the login form */
+
 .login-container {
     display: flex;
     justify-content: center;
@@ -7,8 +8,8 @@
     width:100vw;
     background: linear-gradient(to right,#3dc0ef,#7f50ff);
   }
-
-  /*login form styles*/
+  
+  /* Styling the login form */
   .login-form {
     background: white;
     padding: 2rem;
@@ -17,16 +18,15 @@
     text-align: center;
     width: 350px;
   }
-
-   /*form heading*/
+  
+  /* Login form heading */
   .login-form h2 {
     margin-bottom: 20px;
     color: #333;
     font-size: 24px;
   }
-
   
-  /*Input field styles*/
+  /* Styling input fields */
   .login-form input {
     width: 100%;
     padding: 10px;
@@ -36,6 +36,7 @@
     font-size: 16px;
     outline: none;
   }
+  
   /* Styling the login button */
   .login-form button {
     width: 100%;
@@ -48,28 +49,32 @@
     cursor: pointer;
     transition: 0.3s;
   }
+  
   /* Button hover effect */
   .login-form button:hover {
     background: #6a11cb;
   }
-/* Error message styling */
+  
+  /* Error message styling */
   .error-message {
     color: red;
     font-size: 14px;
     margin-bottom: 10px;
   }
- /* Register link styles */
+  
+  /* Register link styling */
   .login-form p {
     margin-top: 15px;
     font-size: 14px;
   }
   
-.login-form a {
+  .login-form a {
     color: #2575fc;
     text-decoration: none;
     font-weight: bold;
   }
-
+  
   .login-form a:hover {
     text-decoration: underline;
   }
+  

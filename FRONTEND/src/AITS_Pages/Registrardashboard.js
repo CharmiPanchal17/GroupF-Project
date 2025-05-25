@@ -44,6 +44,11 @@ export default function RegistrarDashboard() {
       courses: issues.filter((issue) => issue.lecturerName === lecturerName).map((issue) => issue.courseUnit),
     }));
 
+    const logOut = () => {
+      localStorage.clear();
+      window.location.reload();
+  };
+
   return (
     <div className="p-8 max-w-4xl mx-auto">
       <h1 className="text-2xl font-bold mb-4">REGISTRAR DASHBOARD</h1>
@@ -99,6 +104,8 @@ export default function RegistrarDashboard() {
           </table>
         </div>
       ))}
+
+<button onClick={logOut}>Log out</button>
     </div>
   );
 }

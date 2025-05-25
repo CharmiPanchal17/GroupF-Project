@@ -11,13 +11,12 @@ const WelcomePage = () => {
     <div className="welcome-page-container">
       <header className="welcome-page-header">
         <img src="/images/Aitslogo.png" alt="AITS Logo" className="welcome-page-logo"/>
-        <h1>WELCOME TO AITS</h1>
-        <h2>Academic Issue Tracking System</h2>
+        <h2>WELCOME TO AITS (Acacemic Issue Tracking System)</h2>
         <p>Your comprehensive academic management system.</p>
         <p>How can we help you?</p>
       </header>
 
-      <Navbar/> 
+      <Navbar /> {/* Navbar moved outside main */}
 
       <main className="welcome-page-main">
         <section className="welcome-page-section">
@@ -34,7 +33,7 @@ const WelcomePage = () => {
           <p>Manage courses, students, and academic tasks.</p>
           <div className="welcome-page-links">
             <Link to='/LecturerDashboard' className='welcome-page-link' onClick={LecturerDashboard}>Login </Link>
-
+            <Link to="/lecturer-signup" className="welcome-page-link">Sign Up</Link>
           </div>
         </section>
 
