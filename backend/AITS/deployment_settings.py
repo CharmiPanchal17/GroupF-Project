@@ -27,6 +27,10 @@ COS_ALLOWED_ORIGINS = [
      'https://groupf-project-aits-frontend.onrender.com',
  ]
 
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+
 STORAGES = {
     "default":{
         "BACKEND": "django.core.files.storage.FileSystemStorage",
