@@ -1,3 +1,4 @@
+//axios api//
 import axios from 'axios';
 const axiosInstance=axios.create({
     baseURL:'https://',
@@ -7,5 +8,4 @@ const axiosInstance=axios.create({
     },
     withCredentials:true,
 });
-
 export default axiosInstance;
